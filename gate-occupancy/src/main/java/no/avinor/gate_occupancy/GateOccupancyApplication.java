@@ -8,6 +8,4 @@ public class GateOccupancyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GateOccupancyApplication.class, args);
-	}
-
-}
+}}
