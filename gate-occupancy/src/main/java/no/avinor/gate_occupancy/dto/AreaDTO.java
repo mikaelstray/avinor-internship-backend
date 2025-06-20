@@ -2,48 +2,61 @@ package no.avinor.gate_occupancy.dto;
 
 import no.avinor.gate_occupancy.model.Crowdiness;
 
+import java.util.List;
+
 /**
- * Data Transfer Object (DTO) that encapsulates all information needed
+ * DTO that encapsulates all information needed
  * by the frontend to display an area and its current crowdiness level.
  */
 public class AreaDTO {
 
-    private String areaName;         // Display name for the area ("Gate A5")
-    private String airportName;      // Name of the airport the area belongs to
-    private String areaTypeName;     // Category/type of area ("Gate", "Lounge")
-    private Crowdiness latestCrowdiness; // Current status (LOW, MODERATE, HIGH, etc.)
+    private String area;               // Name of the area, e.g. "Departure Area A"
+    private String airport;           // Name of the airport, e.g. "Oslo Lufthavn"
+    private String terminal;          // Which terminal this area is in, e.g. "Terminal 1"
+    private List<String> areaTypes;   // Types inside this area, e.g. ["Gate A5", "Burger King"]
+    private Crowdiness latestCrowdiness;  // Current crowdiness status
 
     public AreaDTO() {}
 
-    public AreaDTO(String areaName, String airportName, String areaTypeName, Crowdiness latestCrowdiness) {
-        this.areaName = areaName;
-        this.airportName = airportName;
-        this.areaTypeName = areaTypeName;
+    public AreaDTO(String area, String airport, String terminal,
+                   List<String> areaTypes, Crowdiness latestCrowdiness) {
+        this.area = area;
+        this.airport = airport;
+        this.terminal = terminal;
+        this.areaTypes = areaTypes;
         this.latestCrowdiness = latestCrowdiness;
     }
 
     public String getAreaName() {
-        return areaName;
+        return area;
     }
 
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
+    public void setArea(String area) {
+        this.area = area;
     }
 
-    public String getAirportName() {
-        return airportName;
+    public String getAirport() {
+        return airport;
     }
 
-    public void setAirportName(String airportName) {
-        this.airportName = airportName;
+    public void setAirport(String airport) {
+        this.airport = airport;
     }
 
-    public String getAreaTypeName() {
-        return areaTypeName;
+    public String getTerminal() {
+        return terminal;
     }
 
-    public void setAreaTypeName(String areaTypeName) {
-        this.areaTypeName = areaTypeName;
+    public void setTerminalName(String terminal) {
+        this.terminal = terminal;
+    }
+
+    public List<String> getAreaTypes() {
+        return areaTypes;
+    }
+
+    public void setAreaTypes(List<String> areaTypes) {
+        this.areaTypes = areaTypes;
     }
 
     public Crowdiness getLatestCrowdiness() {

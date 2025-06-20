@@ -2,11 +2,14 @@ package no.avinor.gate_occupancy.service;
 
 import no.avinor.gate_occupancy.dto.AreaDTO;
 import no.avinor.gate_occupancy.model.Area;
+import no.avinor.gate_occupancy.model.AreaType;
 import no.avinor.gate_occupancy.model.CapacityStatus;
 import no.avinor.gate_occupancy.model.Crowdiness;
 import no.avinor.gate_occupancy.repository.AreaRepository;
 import no.avinor.gate_occupancy.repository.CapacityStatusRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Default implementation of AreaService.
@@ -36,23 +39,29 @@ public class AreaServiceImpl implements AreaService {
      */
     @Override
     public AreaDTO getAreaStatus(Long areaId) {
-        // Get the area (e.g., a gate)
+        // Hent området
         Area area = areaRepository.findById(areaId)
                 .orElseThrow(() -> new RuntimeException("Area not found"));
 
-        // Get the latest status for the area
+        // Hent crowdiness-status
         CapacityStatus status = capacityStatusRepository.findLatestByAreaId(areaId)
                 .orElse(null);
 
-        // Extract crowdiness value if status exists
         Crowdiness crowdiness = (status != null) ? status.getCrowdiness() : Crowdiness.UNKNOWN;
 
-        // Map model objects into a DTO for the frontend
+        // Konverter areaTypes til liste av navn
+        List<String> areaTypeNames = area.getAreaTypes().stream()
+                .map(AreaType::getName)
+                .collect(java.util.stream.Collectors.toList());
+
+        // Bygg og returner DTO
         return new AreaDTO(
                 area.getName(),
-                area.getAirportName(),
-                area.getAreaTypeName(),
+                area.getAirport().getName(),
+                area.getTerminal().getName(),
+                areaTypeNames,
                 crowdiness
         );
     }
+
 }
