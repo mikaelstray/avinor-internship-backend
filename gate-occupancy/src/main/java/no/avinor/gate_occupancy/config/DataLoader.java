@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import no.avinor.gate_occupancy.model.Airport;
 import no.avinor.gate_occupancy.model.Area;
 import no.avinor.gate_occupancy.model.CapacityStatus;
+import no.avinor.gate_occupancy.model.Crowdiness;
 import no.avinor.gate_occupancy.repository.AreaRepository;
 import no.avinor.gate_occupancy.repository.CapacityStatusRepository;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class DataLoader implements AreaRepository, CapacityStatusRepository {
         Area gateArea = new Area(101L, "Gate A5", airport.getName(), "Gate" );
         areaStore.put(gateArea.getId(), gateArea);
 
-        CapacityStatus status = new CapacityStatus(1L, "LOW", LocalDateTime.now(), gateArea.getId());
+        CapacityStatus status = new CapacityStatus(1L, Crowdiness.LOW, LocalDateTime.now(), gateArea.getId());
         capacityStore.put(gateArea.getId(), status);
     }
 

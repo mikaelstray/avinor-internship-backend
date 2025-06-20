@@ -1,26 +1,24 @@
 package no.avinor.gate_occupancy.model;
 
+import no.avinor.gate_occupancy.model.Crowdiness;
+
 import java.time.LocalDateTime;
 
-/**
- * Represents the crowd level or availability in a specific area at a given point in time.
- * Used to evaluate real-time or recent usage data.
- */
 public class CapacityStatus {
-    private Long id;                  // Unique identifier for this status record
-    private String crowdiness;        // Current status (e.g., "LOW", "MODERATE", "HIGH")
-    private LocalDateTime timestamp;  // Time when this status was recorded
-
-    private Long areaId;              // ID of the area this status applies to
+    private Long id;                  // Unik identifikator for denne statusen
+    private Crowdiness crowdiness;    // Bruk enum i stedet for en streng
+    private LocalDateTime timestamp;  // Tidspunkt for når denne statusen ble registrert
+    private Long areaId;              // ID for området denne statusen gjelder for
 
     public CapacityStatus() {}
 
-    public CapacityStatus(Long id, String crowdiness, LocalDateTime timestamp, Long areaId) {
+    public CapacityStatus(Long id, Crowdiness crowdiness, LocalDateTime timestamp, Long areaId) {
         this.id = id;
         this.crowdiness = crowdiness;
         this.timestamp = timestamp;
         this.areaId = areaId;
     }
+
 
     public Long getId() {
         return id;
@@ -30,11 +28,11 @@ public class CapacityStatus {
         this.id = id;
     }
 
-    public String getCrowdiness() {
+    public Crowdiness getCrowdiness() {
         return crowdiness;
     }
 
-    public void setCrowdiness(String crowdiness) {
+    public void setCrowdiness(Crowdiness crowdiness) {
         this.crowdiness = crowdiness;
     }
 

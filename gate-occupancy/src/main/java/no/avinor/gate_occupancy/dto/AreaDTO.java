@@ -1,5 +1,7 @@
 package no.avinor.gate_occupancy.dto;
 
+import no.avinor.gate_occupancy.model.Crowdiness;
+
 /**
  * Data Transfer Object (DTO) that encapsulates all information needed
  * by the frontend to display an area and its current crowdiness level.
@@ -9,11 +11,11 @@ public class AreaDTO {
     private String areaName;         // Display name for the area ("Gate A5")
     private String airportName;      // Name of the airport the area belongs to
     private String areaTypeName;     // Category/type of area ("Gate", "Lounge")
-    private String latestCrowdiness; // Current status (LOW, MODERATE, HIGH, etc.)
+    private Crowdiness latestCrowdiness; // Current status (LOW, MODERATE, HIGH, etc.)
 
     public AreaDTO() {}
 
-    public AreaDTO(String areaName, String airportName, String areaTypeName, String latestCrowdiness) {
+    public AreaDTO(String areaName, String airportName, String areaTypeName, Crowdiness latestCrowdiness) {
         this.areaName = areaName;
         this.airportName = airportName;
         this.areaTypeName = areaTypeName;
@@ -44,11 +46,11 @@ public class AreaDTO {
         this.areaTypeName = areaTypeName;
     }
 
-    public String getLatestCrowdiness() {
+    public Crowdiness getLatestCrowdiness() {
         return latestCrowdiness;
     }
 
-    public void setLatestCrowdiness(String latestCrowdiness) {
+    public void setLatestCrowdiness(Crowdiness latestCrowdiness) {
         this.latestCrowdiness = latestCrowdiness;
     }
 }

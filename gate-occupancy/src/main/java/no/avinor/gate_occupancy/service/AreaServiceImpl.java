@@ -3,6 +3,7 @@ package no.avinor.gate_occupancy.service;
 import no.avinor.gate_occupancy.dto.AreaDTO;
 import no.avinor.gate_occupancy.model.Area;
 import no.avinor.gate_occupancy.model.CapacityStatus;
+import no.avinor.gate_occupancy.model.Crowdiness;
 import no.avinor.gate_occupancy.repository.AreaRepository;
 import no.avinor.gate_occupancy.repository.CapacityStatusRepository;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,7 @@ public class AreaServiceImpl implements AreaService {
                 .orElse(null);
 
         // Extract crowdiness value if status exists
-        String crowdiness = (status != null) ? status.getCrowdiness() : "UNKNOWN";
+        Crowdiness crowdiness = (status != null) ? status.getCrowdiness() : Crowdiness.UNKNOWN;
 
         // Map model objects into a DTO for the frontend
         return new AreaDTO(
