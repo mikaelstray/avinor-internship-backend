@@ -1,6 +1,8 @@
 package no.avinor.gate_occupancy.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -8,20 +10,20 @@ import java.util.Set;
  * such as a gate, seating area, or restaurant.
  */
 public class Area {
-    private Long id;               // Unique ID for the area
+    private Long id;
     private String name;           // Display name, område med flere gates restauranter feks
-    private Airport airport;        // Airport this area belongs to//
     private Terminal terminal;      //Terminal this area is located in
-    private Set<AreaType> areaTypes;   // Logical type of area ("Gate", "Restaurant")
+    private Set<Place> places; // Logical type of area ("Gate", "Restaurant")
+    private int capacity;
+    private double size;
 
     public Area() {}
 
-    public Area(Long id, String name, Airport airport, Terminal terminal, Set<AreaType> areaTypes) {
+    public Area(Long id, String name, Terminal terminal, Set<Place> places) {
         this.id = id;
         this.name = name;
-        this.airport = airport;
         this.terminal = terminal;
-        this.areaTypes = areaTypes;
+        this.places = places;
     }
 
     public Long getId() {
@@ -41,15 +43,11 @@ public class Area {
     }
 
     public Airport getAirport() {
-        return airport;
+        return terminal != null ? terminal.getAirport() : null;
     }
 
-    public void setAirport(Airport airport) {
-        this.airport = airport;
-    }
-
-    public void setAreaTypes(Set<AreaType> areaTypes) {
-        this.areaTypes = areaTypes;
+    public void setPlaces(Set<Place> places) {
+        this.places = places;
     }
 
     public Terminal getTerminal(){
@@ -60,16 +58,33 @@ public class Area {
         this.terminal = terminal;
     }
 
-    public void addAreaType(AreaType areaType) {
-        if (this.areaTypes == null) {
-            this.areaTypes = new HashSet<>();
+    public void addPlace(Place place) {
+        if (this.places == null) {
+            this.places = new HashSet<>();
         }
-        this.areaTypes.add(areaType);
+        this.places.add(place);
     }
 
-    public Set<AreaType> getAreaTypes() {
-        return areaTypes;
+    public int getCapacity() {
+        return capacity; }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity; }
+
+    public double getSize() {
+        return size; }
+
+    public void setSize(double size) {
+        this.size = size; }
+
+
+    public Set<Place> getPlaces() {
+        if (places == null) {
+            return new HashSet<>();
+        }
+        return places;
     }
+
 
 
 

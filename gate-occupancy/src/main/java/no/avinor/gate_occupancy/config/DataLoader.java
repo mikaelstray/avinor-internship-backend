@@ -17,19 +17,28 @@ public class DataLoader implements AreaRepository, CapacityStatusRepository {
 
     @PostConstruct
     public void loadData() {
-        //lager objektene som testes
-        Airport airport = new Airport(1L, "Oslo Gardermoen");
+        // Opprett flyplass og terminal
+        Airport airport = new Airport("OSL", "Oslo Gardermoen");
         Terminal terminal = new Terminal(1L, "Terminal 1", airport);
-        AreaType gateA5 = new AreaType(1L, "Gate A5");
-        AreaType restaurant = new AreaType(2L, "Burger King");
-        Set<AreaType> areaTypes = new HashSet<>();
-        areaTypes.add(gateA5);
-        areaTypes.add(restaurant);
 
-        Area gateArea = new Area(101L, "Departure Zone A", airport, terminal, areaTypes);
+        // Opprett plasser
+        Place gateA5 = new Place(123L, "Gate A5", 40);
+        Place restaurant = new Place(456L, "Burger King", 20);
+
+        Set<Place> places = new HashSet<>();
+        places.add(gateA5);
+        places.add(restaurant);
+
+        // Opprett område
+        Area gateArea = new Area(101L, "Departure Zone A", terminal, places);
+        gateArea.setCapacity(100);
+        gateArea.setSize(200.0);
+
+        // Sett area i CapacityStatus
+        CapacityStatus status = new CapacityStatus(1L, Crowdiness.LOW, LocalDateTime.now(), gateArea);
+
+        // Lagre i minne-baserte "repoer"
         areaStore.put(gateArea.getId(), gateArea);
-
-        CapacityStatus status = new CapacityStatus(1L, Crowdiness.LOW, LocalDateTime.now(), gateArea.getId());
         capacityStore.put(gateArea.getId(), status);
     }
 

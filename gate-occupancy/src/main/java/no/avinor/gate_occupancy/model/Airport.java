@@ -1,26 +1,29 @@
 package no.avinor.gate_occupancy.model;
 
 
+import java.util.List;
+
 /**
  * Simple model representing an airport.
  * Used to associate areas (like gates or lounges) with their physical airport location.
  */
 public class Airport {
-    private Long id;        // Unique identifier for the airport
-    private String name;    // Airport name ("OSL")
+    private String id;        // Unique identifier for the airport
+    private String name;
+    private List<Terminal> terminals;
 
     public Airport() {}
 
-    public Airport(Long id, String name) {
+    public Airport(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -31,4 +34,6 @@ public class Airport {
     public void setName(String name) {
         this.name = name;
     }
+
 }
+

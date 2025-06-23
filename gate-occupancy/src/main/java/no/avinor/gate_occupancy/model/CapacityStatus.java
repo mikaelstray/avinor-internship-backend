@@ -1,22 +1,20 @@
 package no.avinor.gate_occupancy.model;
 
-import no.avinor.gate_occupancy.model.Crowdiness;
-
 import java.time.LocalDateTime;
 
 public class CapacityStatus {
     private Long id;                  // Unik identifikator for denne statusen
-    private Crowdiness crowdiness;    // Bruk enum i stedet for en streng
+    private Crowdiness crowdiness;
     private LocalDateTime timestamp;  // Tidspunkt for når denne statusen ble registrert
-    private Long areaId;              // ID for området denne statusen gjelder for
+    private Area area;
 
     public CapacityStatus() {}
 
-    public CapacityStatus(Long id, Crowdiness crowdiness, LocalDateTime timestamp, Long areaId) {
+    public CapacityStatus(Long id, Crowdiness crowdiness, LocalDateTime timestamp, Area area) {
         this.id = id;
         this.crowdiness = crowdiness;
         this.timestamp = timestamp;
-        this.areaId = areaId;
+        this.area = area;
     }
 
 
@@ -44,11 +42,11 @@ public class CapacityStatus {
         this.timestamp = timestamp;
     }
 
-    public Long getAreaId() {
-        return areaId;
+    public Area getArea() {
+        return area;
     }
 
-    public void setAreaId(Long areaId) {
-        this.areaId = areaId;
+    public void setArea(Area area) {
+        this.area = area;
     }
 }
