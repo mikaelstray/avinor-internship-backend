@@ -1,18 +1,11 @@
 package no.avinor.gate_occupancy.repository;
 
-import no.avinor.gate_occupancy.model.Area;
-import java.util.Optional;
+import no.avinor.gate_occupancy.model.entities.Zone;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Interface for accessing area (e.g. gate, lounge) data.
  */
-public interface AreaRepository {
+public interface AreaRepository extends JpaRepository<Zone,Long> {
 
-    /**
-     * Find a specific area by ID.
-     *
-     * @param id area identifier
-     * @return Optional containing Area if found
-     */
-    Optional<Area> findById(Long id);
 }

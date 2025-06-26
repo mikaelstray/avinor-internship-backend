@@ -1,19 +1,12 @@
 package no.avinor.gate_occupancy.repository;
 
-import no.avinor.gate_occupancy.model.Airport;
-import java.util.Optional;
+import no.avinor.gate_occupancy.model.entities.Airport;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Interface for accessing airport data.
  * Useful for resolving airport names or verifying existence.
  */
-public interface AirportRepository {
+public interface AirportRepository extends JpaRepository<Airport,Long> {
 
-    /**
-     * Find an airport by its unique ID.
-     *
-     * @param id airport identifier
-     * @return Optional containing Airport if found
-     */
-    Optional<Airport> findById(Long id);
 }

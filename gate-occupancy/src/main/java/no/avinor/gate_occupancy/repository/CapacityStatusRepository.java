@@ -1,18 +1,11 @@
 package no.avinor.gate_occupancy.repository;
 
-import no.avinor.gate_occupancy.model.CapacityStatus;
-import java.util.Optional;
+import no.avinor.gate_occupancy.model.entities.CapacityStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Interface for accessing crowdiness status information for an area.
  */
-public interface CapacityStatusRepository {
+public interface CapacityStatusRepository extends JpaRepository<CapacityStatus,Long> {
 
-    /**
-     * Get the latest known capacity status for a given area.
-     *
-     * @param areaId ID of the area
-     * @return Optional containing most recent CapacityStatus
-     */
-    Optional<CapacityStatus> findLatestByAreaId(Long areaId);
 }
