@@ -1,6 +1,6 @@
 package no.avinor.gate_occupancy.service;
 
-import no.avinor.gate_occupancy.dto.AreaDTO;
+import no.avinor.gate_occupancy.model.dto.AreaDTO;
 
 /**
  * Service interface for handling logic related to airport areas.

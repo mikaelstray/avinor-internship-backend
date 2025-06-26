@@ -1,10 +1,10 @@
 package no.avinor.gate_occupancy.service;
 
-import no.avinor.gate_occupancy.dto.AreaDTO;
-import no.avinor.gate_occupancy.model.Area;
-import no.avinor.gate_occupancy.model.Place;
-import no.avinor.gate_occupancy.model.CapacityStatus;
-import no.avinor.gate_occupancy.model.Crowdiness;
+import no.avinor.gate_occupancy.model.dto.AreaDTO;
+import no.avinor.gate_occupancy.model.entities.Zone;
+import no.avinor.gate_occupancy.model.entities.Location;
+import no.avinor.gate_occupancy.model.entities.CapacityStatus;
+import no.avinor.gate_occupancy.model.entities.Crowdiness;
 import no.avinor.gate_occupancy.repository.AreaRepository;
 import no.avinor.gate_occupancy.repository.CapacityStatusRepository;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,7 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public AreaDTO getAreaStatus(Long areaId) {
         // Hent området
-        Area area = areaRepository.findById(areaId)
+        Zone zone = areaRepository.findById(areaId)
                 .orElseThrow(() -> new RuntimeException("Area not found"));
 
         // Hent crowdiness-status
@@ -51,15 +51,15 @@ public class AreaServiceImpl implements AreaService {
         Crowdiness crowdiness = (status != null) ? status.getCrowdiness() : Crowdiness.UNKNOWN;
 
         // Konverter places til liste av navn
-        List<String> places = area.getPlaces().stream()
-                .map(Place::getName)
+        List<String> places = zone.getPlaces().stream()
+                .map(Location::getName)
                 .collect(Collectors.toList());
 
         // Bygg og returner DTO
         return new AreaDTO(
-                area.getName(),
-                area.getTerminal().getAirport().getName(),
-                area.getTerminal().getName(),
+                zone.getName(),
+                zone.getTerminal().getAirport().getName(),
+                zone.getTerminal().getName(),
                 places,
                 crowdiness
         );

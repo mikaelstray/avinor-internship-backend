@@ -1,7 +1,7 @@
 package no.avinor.gate_occupancy.config;
 
-import no.avinor.gate_occupancy.model.CapacityStatus;
-import no.avinor.gate_occupancy.model.Crowdiness;
+import no.avinor.gate_occupancy.model.entities.CapacityStatus;
+import no.avinor.gate_occupancy.model.entities.Crowdiness;
 import no.avinor.gate_occupancy.repository.CapacityStatusRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
