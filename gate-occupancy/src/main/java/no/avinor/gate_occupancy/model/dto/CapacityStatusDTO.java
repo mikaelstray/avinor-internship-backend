@@ -1,6 +1,6 @@
-package no.avinor.gate_occupancy.dto;
+package no.avinor.gate_occupancy.model.dto;
 
-import no.avinor.gate_occupancy.model.Crowdiness;
+import no.avinor.gate_occupancy.model.entities.Crowdiness;
 
 import java.time.LocalDateTime;
 

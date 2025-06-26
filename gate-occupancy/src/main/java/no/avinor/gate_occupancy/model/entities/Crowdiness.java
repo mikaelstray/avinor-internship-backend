@@ -1,4 +1,4 @@
-package no.avinor.gate_occupancy.model;
+package no.avinor.gate_occupancy.model.entities;
 
 public enum Crowdiness {
     LOW("Low crowdiness"),
