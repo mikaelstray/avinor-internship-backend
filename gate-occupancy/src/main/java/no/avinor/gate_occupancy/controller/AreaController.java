@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 public class AreaController {
 
-    private final AreaService areaService;
     private static final Logger logger = LogManager.getLogger(AreaController.class);
-
-    @
 
 }

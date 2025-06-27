@@ -26,4 +26,17 @@ public class Location {
 
     @Column
     private Integer capacity;
+
+    @Column
+    private LocationType type;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId //TODO: primarykeyjoincolumn instead?
+    @JoinColumn(name = "live_status")
+    private LocationLiveOccupancy liveStatus;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "zone_id")
+    private Zone zone;
+
 }

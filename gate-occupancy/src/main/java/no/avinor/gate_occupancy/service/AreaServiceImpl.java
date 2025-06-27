@@ -1,4 +1,4 @@
-package no.avinor.gate_occupancy.service;
+/*package no.avinor.gate_occupancy.service;
 
 import no.avinor.gate_occupancy.model.dto.AreaDTO;
 import no.avinor.gate_occupancy.model.entities.Zone;
@@ -12,32 +12,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Default implementation of AreaService.
- * Responsible for combining data from multiple repositories to build a response for the client.
- */
+
 @Service
 public class AreaServiceImpl implements AreaService {
 
     private final AreaRepository areaRepository;
     private final CapacityStatusRepository capacityStatusRepository;
 
-    /**
-     * Constructor-based dependency injection.
-     * Spring will provide the correct implementations at runtime.
-     */
+
     public AreaServiceImpl(AreaRepository areaRepository, CapacityStatusRepository capacityStatusRepository) {
         this.areaRepository = areaRepository;
         this.capacityStatusRepository = capacityStatusRepository;
     }
 
-    /**
-     * Fetches the area and its latest crowdiness data, and converts it to a DTO.
-     *
-     * @param areaId ID of the area
-     * @return AreaDTO with area info and status
-     * @throws RuntimeException if area is not found
-     */
+
     @Override
     public AreaDTO getAreaStatus(Long areaId) {
         // Hent området
@@ -64,3 +52,4 @@ public class AreaServiceImpl implements AreaService {
                 crowdiness
         );
     }}
+*/

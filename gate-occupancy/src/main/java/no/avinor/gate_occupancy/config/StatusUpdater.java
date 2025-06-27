@@ -1,4 +1,4 @@
-package no.avinor.gate_occupancy.config;
+/*package no.avinor.gate_occupancy.config;
 
 import no.avinor.gate_occupancy.model.entities.CapacityStatus;
 import no.avinor.gate_occupancy.model.entities.Crowdiness;
@@ -18,9 +18,7 @@ public class StatusUpdater {
         this.capacityStatusRepository = capacityStatusRepository;
     }
 
-    /**
-     * Simulerer endring av crowdiness-status hvert 6. sekund
-     */
+
     @Scheduled(fixedRate = 6000) // 6000 ms = 6 sek
     public void updateCrowdiness() {
         Long areaId = 101L;
@@ -46,3 +44,4 @@ public class StatusUpdater {
         }
     }
 }
+*/

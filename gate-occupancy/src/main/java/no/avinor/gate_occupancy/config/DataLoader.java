@@ -1,4 +1,4 @@
-package no.avinor.gate_occupancy.config;
+/*package no.avinor.gate_occupancy.config;
 
 import jakarta.annotation.PostConstruct;
 import no.avinor.gate_occupancy.model.entities.*;
@@ -52,3 +52,4 @@ public class DataLoader implements AreaRepository, CapacityStatusRepository {
         return Optional.ofNullable(capacityStore.get(areaId));
     }
 }
+*/
