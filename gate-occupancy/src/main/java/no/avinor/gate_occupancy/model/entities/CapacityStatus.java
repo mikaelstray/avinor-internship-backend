@@ -32,7 +32,7 @@ public class CapacityStatus {
     private LocalDateTime timestamp;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zone_id")
-    private Zone zone;
+    @JoinColumn(name = "location_id")
+    private Location location;
 
 }

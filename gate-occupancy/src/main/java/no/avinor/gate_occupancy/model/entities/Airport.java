@@ -19,7 +19,7 @@ public class Airport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -30,7 +30,7 @@ public class Airport {
     @Column(nullable = false)
     private Boolean schengen;
 
-    @OneToMany(mappedBy = "terminal",  cascade = CascadeType.ALL,  orphanRemoval = true)
+    @OneToMany(mappedBy = "airport",  cascade = CascadeType.ALL,  orphanRemoval = true)
     private List<Terminal> terminals = new ArrayList<>();
 }
 

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.type.descriptor.jdbc.TinyIntAsSmallIntJdbcType;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +18,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 
 @Table(name = "occupancy_live_status")
-public class OccupancyLiveStatus {
+public class LocationLiveOccupancy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

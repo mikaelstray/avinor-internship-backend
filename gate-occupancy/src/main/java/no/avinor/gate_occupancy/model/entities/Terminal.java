@@ -25,11 +25,14 @@ public class Terminal {
     @Column
     private String name;
 
+    @Column
+    private Integer numberOfGates;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "airport_id")
     private Airport airport;
 
-    @OneToMany(mappedBy = "zone", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "terminal", fetch = FetchType.LAZY)
     private Set<Zone> zones;
 
 }

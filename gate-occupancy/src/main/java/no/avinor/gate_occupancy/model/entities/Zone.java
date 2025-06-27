@@ -30,7 +30,7 @@ public class Zone {
     @JoinColumn(name = "terminal_id")
     private Terminal terminal;
 
-    @OneToMany(mappedBy = "locations", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "zone", fetch = FetchType.LAZY)
     private Set<Location> locations;
 
     @Column
