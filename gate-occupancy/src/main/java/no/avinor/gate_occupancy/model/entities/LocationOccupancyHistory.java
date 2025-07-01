@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -30,9 +29,6 @@ public class LocationOccupancyHistory {
 
     @Column
     private Integer pax;
-
-    @Column
-    private LocalDateTime timestamp;
 
     @Column
     @CreationTimestamp

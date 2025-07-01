@@ -16,7 +16,6 @@ import java.util.List;
 
 @Table(name = "airport")
 public class Airport {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
