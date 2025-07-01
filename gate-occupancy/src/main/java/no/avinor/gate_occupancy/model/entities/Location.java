@@ -30,9 +30,7 @@ public class Location {
     @Column
     private LocationType type;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId //TODO: primarykeyjoincolumn instead?
-    @JoinColumn(name = "live_status")
+    @OneToOne(mappedBy = "location",  cascade = CascadeType.ALL)
     private LocationLiveOccupancy liveStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
