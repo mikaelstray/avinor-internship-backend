@@ -20,14 +20,19 @@ import java.time.LocalDateTime;
 @Table(name = "occupancy_live_status")
 public class LocationLiveOccupancy {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "location_id")
     private Long id;
 
     @Column
-    private Integer newPax;
+    private Integer pax;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     private LocalDateTime updatedTime;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "location_id")
+    private Location location;
 }
