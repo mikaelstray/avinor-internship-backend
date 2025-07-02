@@ -8,6 +8,7 @@ import no.avinor.gate_occupancy.model.dto.occupancyStatus.UpdateOccupancyRequest
 import no.avinor.gate_occupancy.model.entities.Location;
 import no.avinor.gate_occupancy.model.entities.LocationLiveOccupancy;
 import no.avinor.gate_occupancy.model.entities.LocationOccupancyHistory;
+import no.avinor.gate_occupancy.repository.LocationLiveOccupancyRepository;
 import no.avinor.gate_occupancy.repository.LocationOccupancyHistoryRepository;
 import no.avinor.gate_occupancy.repository.LocationRepository;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class LocationService {
 
-    LocationRepository locationRepository;
-    LocationOccupancyHistoryRepository historyRepository;
-    PaxNotifierService paxNotifierService;
+    private final LocationRepository locationRepository;
+    private final LocationLiveOccupancyRepository liveRepository;
+    private final LocationOccupancyHistoryRepository historyRepository;
+    private final PaxNotifierService paxNotifierService;
 
     //decided to keep service methods business logic only. mapping to dto will be done in the controller,
     //to ensure reusable methods enabling possibility of different dtos etc.
@@ -35,12 +37,8 @@ public class LocationService {
         Location location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.LOCATION_NOT_FOUND));
 
-        LocationLiveOccupancy liveStatus = location.getLiveStatus();
-        if (liveStatus == null) {
-            liveStatus = new LocationLiveOccupancy()
-                    .setLocation(location);
-            location.setLiveStatus(liveStatus);
-        }
+        LocationLiveOccupancy liveStatus = liveRepository.findByLocation_Id(locationId)
+                        .orElse(new LocationLiveOccupancy().setLocation(location));
 
         liveStatus.setPax(request.newPax());
         locationRepository.save(location);

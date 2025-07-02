@@ -31,8 +31,7 @@ public class LocationLiveOccupancy {
     @Column(name = "modify_date")
     private LocalDateTime updatedTime;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "location_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "location_id", nullable = false, unique = true)
     private Location location;
 }

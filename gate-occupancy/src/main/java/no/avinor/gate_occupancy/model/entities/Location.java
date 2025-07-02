@@ -30,9 +30,6 @@ public class Location {
     @Column
     private LocationType type;
 
-    @OneToOne(mappedBy = "location",  cascade = CascadeType.ALL)
-    private LocationLiveOccupancy liveStatus;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "zone_id")
     private Zone zone;
