@@ -3,9 +3,8 @@ package no.avinor.gate_occupancy.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import no.avinor.gate_occupancy.model.dto.location.LocationLiteResponse;
-import no.avinor.gate_occupancy.model.dto.occupancyStatus.LiveStatusResponse;
-import no.avinor.gate_occupancy.model.dto.occupancyStatus.UpdatePaxRequest;
-import no.avinor.gate_occupancy.model.entities.LocationLiveOccupancy;
+import no.avinor.gate_occupancy.model.dto.occupancyStatus.LocationOccupancyStatus;
+import no.avinor.gate_occupancy.model.dto.occupancyStatus.UpdateOccupancyRequest;
 import no.avinor.gate_occupancy.model.mappers.LiveOccupancyMapper;
 import no.avinor.gate_occupancy.model.mappers.LocationMapper;
 import no.avinor.gate_occupancy.service.LocationService;
@@ -16,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/areas")
+@RequestMapping("/api/locatio")
 @RequiredArgsConstructor
 @Validated
 
@@ -27,11 +26,11 @@ public class LocationController {
     private final LiveOccupancyMapper liveMapper;
 
     @PatchMapping("/{id}/pax")
-    public ResponseEntity<LiveStatusResponse> updatePax(
+    public ResponseEntity<LocationOccupancyStatus> updatePax(
             @PathVariable Long id,
-            @RequestBody @Valid UpdatePaxRequest request
+            @RequestBody @Valid UpdateOccupancyRequest request
             ) {
-        LiveStatusResponse response = liveMapper.toDto(locationService.updatePax(id, request));
+        LocationOccupancyStatus response = liveMapper.toDto(locationService.updatePax(id, request));
         return ResponseEntity.ok(response);
     }
 
