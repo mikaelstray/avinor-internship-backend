@@ -26,8 +26,6 @@ public class LocationService {
     private final LocationOccupancyHistoryRepository historyRepository;
     private final PaxNotifierService paxNotifierService;
 
-    //decided to keep service methods business logic only. mapping to dto will be done in the controller,
-    //to ensure reusable methods enabling possibility of different dtos etc.
     public Location getLocationById(Long id) {
         return locationRepository.findById(id)
                 .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.LOCATION_NOT_FOUND));
@@ -42,7 +40,7 @@ public class LocationService {
                         .orElse(new LocationLiveOccupancy().setLocation(location));
 
         liveStatus.setPax(request.newPax());
-        locationRepository.save(location);
+        liveRepository.save(liveStatus);
 
         LocationOccupancyHistory history = new LocationOccupancyHistory()
                 .setLocation(location)

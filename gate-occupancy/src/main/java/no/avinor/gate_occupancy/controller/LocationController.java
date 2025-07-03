@@ -12,7 +12,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/locations")
@@ -30,7 +35,9 @@ public class LocationController {
             @PathVariable Long id,
             @RequestBody @Valid UpdateOccupancyRequest request
             ) {
+        logger.info("Controller: updating pax with location id {}, new pax: {}", id, request.newPax());
         LocationOccupancyStatus response = liveMapper.toDto(locationService.updatePax(id, request));
+        logger.info("Controller: pax successfully updated");
         return ResponseEntity.ok(response);
     }
 
@@ -38,7 +45,9 @@ public class LocationController {
     public ResponseEntity<LocationLiteResponse> getLocation(
             @PathVariable Long id
     ) {
+        logger.info("Controller: Getting lite location dto with id: {} ", id);
         LocationLiteResponse response = locationMapper.toLiteResponse(locationService.getLocationById(id));
+        logger.info("Controller: Location successfully retrieved");
         return ResponseEntity.ok(response);
     }
 }

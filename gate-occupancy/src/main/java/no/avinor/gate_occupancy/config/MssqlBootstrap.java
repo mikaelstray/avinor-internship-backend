@@ -7,7 +7,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.avinor.gate_occupancy.exception.CustomErrorMessage;
 import no.avinor.gate_occupancy.exception.customExceptions.AppEntityNotFoundException;
-import no.avinor.gate_occupancy.model.entities.*;
+import no.avinor.gate_occupancy.model.entities.Airport;
+import no.avinor.gate_occupancy.model.entities.Location;
+import no.avinor.gate_occupancy.model.entities.LocationType;
+import no.avinor.gate_occupancy.model.entities.Terminal;
+import no.avinor.gate_occupancy.model.entities.Zone;
 import no.avinor.gate_occupancy.repository.AirportRepository;
 import no.avinor.gate_occupancy.repository.LocationRepository;
 import no.avinor.gate_occupancy.repository.TerminalRepository;
@@ -53,12 +57,10 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
                 System.out.println(airports);
                 for (Map<String, Object> airportData : airports) {
 
-                    // hvis eksisterer --> continue
                     if (airportRepository.existsByName(airportData.get("name").toString())) {
                         continue;
                     }
 
-                    // nytt objekt i database
                     Airport airport = new Airport()
                             .setName(airportData.get("name").toString())
                             .setCity(airportData.get("city").toString())
@@ -100,7 +102,7 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException("Error loading airport data", e);
+            throw new RuntimeException("Error loading terminal data", e);
         }
     }
 
@@ -115,7 +117,6 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
                 });
                 for (Map<String, Object> zoneData : zones) {
 
-                    // hvis eksisterer --> continue
                     if (zoneRepository.existsByName(zoneData.get("name").toString())) {
                         continue;
                     }
@@ -124,7 +125,6 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
                     Terminal parentTerminal = terminalRepository.findByName(terminalName)
                             .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.TERMINAL_NOT_FOUND));
 
-                    // nytt objekt i database
                     Zone zone = new Zone()
                             .setName(zoneData.get("name").toString())
                             .setCapacity((Integer) zoneData.get("capacity"))
@@ -134,7 +134,7 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException("Error loading location data", e);
+            throw new RuntimeException("Error loading zone data", e);
         }
     }
 
@@ -150,7 +150,6 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
                 });
                 for (Map<String, Object> locationData : locations) {
 
-                    // hvis eksisterer --> continue
                     if (locationRepository.existsByName(locationData.get("name").toString())) {
                         continue;
                     }
@@ -162,7 +161,6 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
                     String typeString = locationData.get("type").toString();
                     LocationType locationType = LocationType.valueOf(typeString.toUpperCase());
 
-                    // nytt objekt i database
                     Location location = new Location()
                             .setZone(parentZone)
                             .setType(locationType)
