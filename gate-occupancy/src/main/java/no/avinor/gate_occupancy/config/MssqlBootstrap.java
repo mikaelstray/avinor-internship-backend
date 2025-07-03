@@ -5,10 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import no.avinor.gate_occupancy.model.entities.Location;
-import no.avinor.gate_occupancy.model.entities.LocationType;
+import no.avinor.gate_occupancy.exception.CustomErrorMessage;
+import no.avinor.gate_occupancy.exception.customExceptions.AppEntityNotFoundException;
+import no.avinor.gate_occupancy.model.entities.*;
 import no.avinor.gate_occupancy.repository.AirportRepository;
 import no.avinor.gate_occupancy.repository.LocationRepository;
+import no.avinor.gate_occupancy.repository.TerminalRepository;
+import no.avinor.gate_occupancy.repository.ZoneRepository;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -25,13 +28,116 @@ import java.util.Map;
 public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent> {
 
     private final LocationRepository locationRepository;
-    private final AirportRepository
+    private final AirportRepository airportRepository;
+    private final ZoneRepository zoneRepository;
+    private final TerminalRepository terminalRepository;
     private final ObjectMapper objectMapper;
 
     @Override
     public void onApplicationEvent(@NotNull ApplicationReadyEvent event) {
+        loadAirportData();
+        loadTerminalData();
+        loadZoneData();
         loadLocationData();
     }
+
+    private void loadAirportData() {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("dbSetup/airport.json")) {
+            if (inputStream == null) {
+                throw new RuntimeException("airport.json not found in classpath");
+            }
+            log.info("Loading airports...");
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+                List<Map<String, Object>> airports = objectMapper.readValue(br, new TypeReference<>() {
+                });
+                System.out.println(airports);
+                for (Map<String, Object> airportData : airports) {
+
+                    // hvis eksisterer --> continue
+                    if (airportRepository.existsByName(airportData.get("name").toString())) {
+                        continue;
+                    }
+
+                    // nytt objekt i database
+                    Airport airport = new Airport()
+                            .setName(airportData.get("name").toString())
+                            .setCity(airportData.get("city").toString())
+                            .setSchengen((Boolean) airportData.get("schengen"));
+
+                    airportRepository.save(airport);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error loading airport data", e);
+        }
+    }
+
+    private void loadTerminalData() {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("dbSetup/terminal.json")) {
+            if (inputStream == null) {
+                throw new RuntimeException("terminal.json not found in classpath");
+            }
+            log.info("Loading terminal...");
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+                List<Map<String, Object>> terminals = objectMapper.readValue(br, new TypeReference<>() {
+                });
+                for (Map<String, Object> terminalData : terminals) {
+
+                    if (terminalRepository.existsByName(terminalData.get("name").toString())) {
+                        continue;
+                    }
+
+                    String airportName = terminalData.get("airportName").toString();
+                    Airport parentAirport = airportRepository.findByName(airportName)
+                            .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.AIRPORT_NOT_FOUND));
+
+                    Terminal terminal = new Terminal()
+                            .setName(terminalData.get("name").toString())
+                            .setAirport(parentAirport)
+                            .setNumberOfGates((Integer) terminalData.get("numberOfGates"));
+
+                    terminalRepository.save(terminal);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error loading airport data", e);
+        }
+    }
+
+    private void loadZoneData() {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("dbSetup/zone.json")) {
+            if (inputStream == null) {
+                throw new RuntimeException("zone.json not found in classpath");
+            }
+            log.info("Loading zone...");
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+                List<Map<String, Object>> zones = objectMapper.readValue(br, new TypeReference<>() {
+                });
+                for (Map<String, Object> zoneData : zones) {
+
+                    // hvis eksisterer --> continue
+                    if (zoneRepository.existsByName(zoneData.get("name").toString())) {
+                        continue;
+                    }
+
+                    String terminalName = zoneData.get("terminalName").toString();
+                    Terminal parentTerminal = terminalRepository.findByName(terminalName)
+                            .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.TERMINAL_NOT_FOUND));
+
+                    // nytt objekt i database
+                    Zone zone = new Zone()
+                            .setName(zoneData.get("name").toString())
+                            .setCapacity((Integer) zoneData.get("capacity"))
+                            .setTerminal(parentTerminal);
+
+                    zoneRepository.save(zone);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error loading location data", e);
+        }
+    }
+
 
     private void loadLocationData() {
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("dbSetup/location.json")) {
@@ -45,18 +151,25 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
                 for (Map<String, Object> locationData : locations) {
 
                     // hvis eksisterer --> continue
-                    if (locationRepository.existsById((Long) locationData.get("location_id"))) {
+                    if (locationRepository.existsByName(locationData.get("name").toString())) {
                         continue;
                     }
 
+                    String zoneName = locationData.get("zoneName").toString();
+                    Zone parentZone = zoneRepository.findByName(zoneName)
+                            .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.ZONE_NOT_FOUND));
+
+                    String typeString = locationData.get("type").toString();
+                    LocationType locationType = LocationType.valueOf(typeString.toUpperCase());
+
                     // nytt objekt i database
                     Location location = new Location()
-                            .setCapacity(10)
-                            .setName("gate1")
-                            .setType(LocationType.GATE)
-                            .setZone(null);
+                            .setZone(parentZone)
+                            .setType(locationType)
+                            .setName(locationData.get("name").toString())
+                            .setCapacity((Integer) locationData.get("capacity"));
 
-                    // .save()
+                    locationRepository.save(location);
                 }
             }
         } catch (Exception e) {
