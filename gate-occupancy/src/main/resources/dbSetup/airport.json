@@ -1,0 +1,13 @@
+[
+  {
+    "name": "Oslo Lufthavn",
+    "city": "Oslo",
+    "schengen": true
+  },
+  {
+    "name": "Flesland",
+    "city": "Bergen",
+    "schengen": true
+  }
+]
+
