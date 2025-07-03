@@ -54,7 +54,6 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
             try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
                 List<Map<String, Object>> airports = objectMapper.readValue(br, new TypeReference<>() {
                 });
-                System.out.println(airports);
                 for (Map<String, Object> airportData : airports) {
 
                     if (airportRepository.existsByName(airportData.get("name").toString())) {
