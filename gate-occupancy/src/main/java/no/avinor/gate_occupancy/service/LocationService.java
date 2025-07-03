@@ -11,10 +11,11 @@ import no.avinor.gate_occupancy.model.entities.LocationOccupancyHistory;
 import no.avinor.gate_occupancy.repository.LocationLiveOccupancyRepository;
 import no.avinor.gate_occupancy.repository.LocationOccupancyHistoryRepository;
 import no.avinor.gate_occupancy.repository.LocationRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Component
 @RequiredArgsConstructor
 @Slf4j
 @Transactional(readOnly = true)

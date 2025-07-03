@@ -15,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/locatio")
+@RequestMapping("/api/locations")
 @RequiredArgsConstructor
 @Validated
 
@@ -41,5 +41,4 @@ public class LocationController {
         LocationLiteResponse response = locationMapper.toLiteResponse(locationService.getLocationById(id));
         return ResponseEntity.ok(response);
     }
-
 }

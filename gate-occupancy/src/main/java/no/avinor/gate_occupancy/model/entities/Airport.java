@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Accessors(chain = true)
 
-@Table(name = "airport")
+@Table(name = "airport", schema = "INTERNS_SCHEMA")
 public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +30,7 @@ public class Airport {
     @Column(nullable = false)
     private Boolean schengen;
 
-    @OneToMany(mappedBy = "airport",  cascade = CascadeType.ALL,  orphanRemoval = true)
+    @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Terminal> terminals = new ArrayList<>();
 }
 

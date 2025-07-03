@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Table(name = "occupancy_live_status")
 public class LocationLiveOccupancy {
     @Id
-    @Column(name = "location_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
