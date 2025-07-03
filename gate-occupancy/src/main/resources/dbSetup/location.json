@@ -1,10 +1,9 @@
 [
   {
-    "name": "HeiMikael",
-    "capacity": 10
-  },
-  {
-    "name": "HeiAleks",
-    "capacity": 15
+    "name": "Gate A1",
+    "capasity": 10,
+    "type": "GATE"
   }
+
 ]
+

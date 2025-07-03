@@ -1,10 +1,13 @@
 [
   {
-    "name": "HeiMikael",
-    "capacity": 10
+    "name": "Oslo Lufthavn",
+    "city": "Oslo",
+    "schengen": true
   },
   {
-    "name": "HeiAleks",
-    "capacity": 15
+    "name": "Flesland",
+    "city": "Bergen",
+    "schengen": true
   }
 ]
+

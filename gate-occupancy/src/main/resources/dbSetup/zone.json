@@ -1,10 +1,8 @@
 [
   {
-    "name": "HeiMikael",
+    "name": "sone 1",
+    "terminal": 1,
     "capacity": 10
-  },
-  {
-    "name": "HeiAleks",
-    "capacity": 15
   }
 ]
+
