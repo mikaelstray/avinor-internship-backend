@@ -7,9 +7,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum CustomErrorMessage {
 
+  LOCATION_NOT_FOUND             (404, "Location not found."),
+  AIRPORT_NOT_FOUND             (404, "Airport not found."),
+  ZONE_NOT_FOUND             (404, "Zone not found."),
+  TERMINAL_NOT_FOUND             (404, "Terminal not found."),
+
   // --- Location Errors ---
   LOCATION_ALREADY_EXISTS    (409, "Location already exists."),
-  LOCATION_NOT_FOUND             (404, "Location not found."),
 
   // --- ... Errors ---
   INVALID___DATA          (400, "... data is invalid."),

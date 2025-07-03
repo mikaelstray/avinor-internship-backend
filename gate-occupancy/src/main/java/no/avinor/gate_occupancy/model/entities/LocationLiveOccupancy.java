@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 @Accessors(chain = true)
 
-@Table(name = "occupancy_live_status")
+@Table(name = "occupancy_live_status", schema = "INTERNS_SCHEMA")
 public class LocationLiveOccupancy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class LocationLiveOccupancy {
     @Column(name = "modify_date")
     private LocalDateTime updatedTime;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "location_id", nullable = false, unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id", unique = true)
     private Location location;
 }

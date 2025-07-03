@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 
-@Table(name = "location")
+@Table(name = "location", schema = "INTERNS_SCHEMA")
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

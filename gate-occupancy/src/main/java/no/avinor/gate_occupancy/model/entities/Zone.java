@@ -17,7 +17,7 @@ import java.util.Set;
 @Setter
 @Accessors(chain = true)
 
-@Table(name = "zone")
+@Table(name = "zone", schema = "INTERNS_SCHEMA")
 public class Zone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

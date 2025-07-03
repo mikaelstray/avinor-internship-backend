@@ -16,7 +16,7 @@ import java.util.Set;
 @Setter
 @Accessors(chain = true)
 
-@Table(name = "terminal")
+@Table(name = "terminal", schema = "INTERNS_SCHEMA")
 public class Terminal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

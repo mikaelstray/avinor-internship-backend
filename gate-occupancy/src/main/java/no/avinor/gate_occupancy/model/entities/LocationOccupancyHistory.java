@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 @Accessors(chain = true)
 
-@Table(name = "location_occupancy_history")
+@Table(name = "location_occupancy_history", schema = "INTERNS_SCHEMA")
 public class LocationOccupancyHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
