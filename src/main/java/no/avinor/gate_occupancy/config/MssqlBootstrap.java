@@ -11,11 +11,9 @@ import no.avinor.gate_occupancy.model.entities.Airport;
 import no.avinor.gate_occupancy.model.entities.Location;
 import no.avinor.gate_occupancy.model.entities.LocationType;
 import no.avinor.gate_occupancy.model.entities.Terminal;
-import no.avinor.gate_occupancy.model.entities.Zone;
 import no.avinor.gate_occupancy.repository.AirportRepository;
 import no.avinor.gate_occupancy.repository.LocationRepository;
 import no.avinor.gate_occupancy.repository.TerminalRepository;
-import no.avinor.gate_occupancy.repository.ZoneRepository;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -33,7 +31,6 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
 
     private final LocationRepository locationRepository;
     private final AirportRepository airportRepository;
-    private final ZoneRepository zoneRepository;
     private final TerminalRepository terminalRepository;
     private final ObjectMapper objectMapper;
 
@@ -41,7 +38,6 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
     public void onApplicationEvent(@NotNull ApplicationReadyEvent event) {
         loadAirportData();
         loadTerminalData();
-        loadZoneData();
         loadLocationData();
     }
 
@@ -105,7 +101,7 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
         }
     }
 
-    private void loadZoneData() {
+    /*private void loadZoneData() {
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("dbSetup/zone.json")) {
             if (inputStream == null) {
                 throw new RuntimeException("zone.json not found in classpath");
@@ -136,7 +132,7 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
             throw new RuntimeException("Error loading zone data", e);
         }
     }
-
+*/
 
     private void loadLocationData() {
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("dbSetup/location.json")) {
@@ -153,15 +149,15 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
                         continue;
                     }
 
-                    String zoneName = locationData.get("zoneName").toString();
-                    Zone parentZone = zoneRepository.findByName(zoneName)
-                            .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.ZONE_NOT_FOUND));
+                    String terminalName = locationData.get("terminalName").toString();
+                    Terminal parentTerminal = terminalRepository.findByName(terminalName)
+                            .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.TERMINAL_NOT_FOUND));
 
                     String typeString = locationData.get("type").toString();
                     LocationType locationType = LocationType.valueOf(typeString.toUpperCase());
 
                     Location location = new Location()
-                            .setZone(parentZone)
+                            .setTerminal(parentTerminal)
                             .setType(locationType)
                             .setName(locationData.get("name").toString())
                             .setCapacity((Integer) locationData.get("capacity"));

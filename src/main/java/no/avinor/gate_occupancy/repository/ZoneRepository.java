@@ -1,4 +1,4 @@
-package no.avinor.gate_occupancy.repository;
+/*package no.avinor.gate_occupancy.repository;
 
 import no.avinor.gate_occupancy.model.entities.Zone;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,3 +12,6 @@ public interface ZoneRepository extends JpaRepository<Zone, Long> {
     Optional<Zone> findByName(String name);
     boolean existsByName(String name);
 }
+
+
+ */

@@ -3,13 +3,13 @@
     "name": "Gate A1",
     "capacity": 10,
     "type": "GATE",
-    "zoneName": "Sone 1"
+    "terminalName": "A"
   },
   {
     "name": "Gate A2",
     "capacity": 10,
     "type": "GATE",
-    "zoneName": "Sone 1"
+    "terminalName": "A"
   }
 ]
 

@@ -40,8 +40,8 @@ public class Location {
     private LocationType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zone_id")
-    private Zone zone;
+    @JoinColumn(name = "terminal_id")
+    private Terminal terminal;
 
 }
 

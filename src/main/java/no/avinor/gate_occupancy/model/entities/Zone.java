@@ -1,4 +1,4 @@
-package no.avinor.gate_occupancy.model.entities;
+/* package no.avinor.gate_occupancy.model.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,5 +43,6 @@ public class Zone {
 
     @Column
     private Integer capacity;
-
 }
+
+ */

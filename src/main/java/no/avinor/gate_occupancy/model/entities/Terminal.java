@@ -42,7 +42,7 @@ public class Terminal {
     private Airport airport;
 
     @OneToMany(mappedBy = "terminal", fetch = FetchType.LAZY)
-    private Set<Zone> zones;
+    private Set<Location> locations;
 
 }
 
