@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -29,6 +31,10 @@ public class LocationService {
     public Location getLocationById(Long id) {
         return locationRepository.findById(id)
                 .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.LOCATION_NOT_FOUND));
+    }
+
+    public List<Location> getAllByTerminal(Long terminalId) {
+        return locationRepository.findAllByTerminal_Id(terminalId);
     }
 
     @Transactional

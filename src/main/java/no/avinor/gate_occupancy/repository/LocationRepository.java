@@ -15,4 +15,6 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     
     Optional<Location> findByName(String name);
     boolean existsByName(String name);
+
+    List<Location> findAllByTerminal_Id(Long terminalId);
 }
