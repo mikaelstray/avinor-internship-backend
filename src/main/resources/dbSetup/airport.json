@@ -1,13 +1,22 @@
 [
   {
     "name": "Oslo Lufthavn",
-    "city": "Oslo",
+    "city": "Gardermoen",
     "schengen": true
   },
   {
-    "name": "Flesland",
-    "city": "Bergen",
+    "name": "Bergen lufthavn",
+    "city": "Flesland",
+    "schengen": true
+  },
+  {
+    "name": "Trondheim lufthavn",
+    "city": "Værnes",
+    "schengen": true
+  },
+  {
+    "name": "Stavanger lufthavn",
+    "city": "Sola",
     "schengen": true
   }
 ]
-
