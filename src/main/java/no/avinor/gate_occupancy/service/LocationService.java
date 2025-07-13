@@ -12,7 +12,6 @@ import no.avinor.gate_occupancy.repository.LocationLiveOccupancyRepository;
 import no.avinor.gate_occupancy.repository.LocationOccupancyHistoryRepository;
 import no.avinor.gate_occupancy.repository.LocationRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
@@ -29,6 +28,11 @@ public class LocationService {
     public Location getLocationById(Long id) {
         return locationRepository.findById(id)
                 .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.LOCATION_NOT_FOUND));
+    }
+
+    public LocationLiveOccupancy getLocationLiveStatus(Long id) {
+        return liveRepository.findByLocation_Id(id)
+                .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.LIVE_STATUS_NOT_FOUND));
     }
 
     @Transactional

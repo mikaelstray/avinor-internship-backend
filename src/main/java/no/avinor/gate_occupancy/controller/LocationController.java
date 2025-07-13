@@ -50,4 +50,14 @@ public class LocationController {
         logger.info("Controller: Location successfully retrieved");
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/{id}/occupancy")
+    public ResponseEntity<LocationOccupancyStatus> getLiveStatus(
+            @PathVariable Long id
+    ) {
+        logger.info("Getting live status for location with id: {}", id);
+        LocationOccupancyStatus response = liveMapper.toDto(locationService.getLocationLiveStatus(id));
+        logger.info("Successfully retrieved live status");
+        return ResponseEntity.ok(response);
+    }
 }

@@ -11,6 +11,8 @@ public enum CustomErrorMessage {
   AIRPORT_NOT_FOUND             (404, "Airport not found."),
   ZONE_NOT_FOUND             (404, "Zone not found."),
   TERMINAL_NOT_FOUND             (404, "Terminal not found."),
+  LIVE_STATUS_NOT_FOUND             (404, "Live status not found."),
+
 
   // --- Location Errors ---
   LOCATION_ALREADY_EXISTS    (409, "Location already exists."),
