@@ -9,10 +9,12 @@ import no.avinor.gate_occupancy.model.entities.Airport;
 import no.avinor.gate_occupancy.model.entities.Location;
 import no.avinor.gate_occupancy.model.entities.LocationLiveOccupancy;
 import no.avinor.gate_occupancy.model.entities.LocationOccupancyHistory;
+import no.avinor.gate_occupancy.model.entities.Terminal;
 import no.avinor.gate_occupancy.repository.AirportRepository;
 import no.avinor.gate_occupancy.repository.LocationLiveOccupancyRepository;
 import no.avinor.gate_occupancy.repository.LocationOccupancyHistoryRepository;
 import no.avinor.gate_occupancy.repository.LocationRepository;
+import no.avinor.gate_occupancy.repository.TerminalRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,9 +27,13 @@ import java.util.List;
 public class AirportService {
 
     private final AirportRepository airportRepository;
+    private final TerminalRepository terminalRepository;
 
     public List<Airport> getAllAirports() {
         return airportRepository.findAll();
     }
 
+    public List<Terminal> getTerminalsByAirportIata(String iata) {
+        return terminalRepository.findByAirport_Iata(iata);
+    }
 }

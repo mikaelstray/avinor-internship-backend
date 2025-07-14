@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface TerminalRepository extends JpaRepository<Terminal, Long> {
     Optional<Terminal> findByName(String name);
     boolean existsByName(String name);
+
+    List<Terminal> findByAirport_Iata(String airportIata);
 }
