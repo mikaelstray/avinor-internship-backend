@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface TerminalRepository extends JpaRepository<Terminal, Long> {
     Optional<Terminal> findByNameAndAirport_Iata(String name, String airportIata);
-    boolean existsByNameAndAirport_Name(String name, String airportName);
+    boolean existsByNameAndAirport_Iata(String name, String airportIata);
 
     List<Terminal> findByAirport_Iata(String airportIata);
 

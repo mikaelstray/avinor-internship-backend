@@ -47,7 +47,7 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
 
             for (Map<String, Object> airportData : airports) {
                 String airportIata = airportData.get("iata").toString();
-                if (airportRepository.existsByName(airportIata)) {
+                if (airportRepository.existsByIata(airportIata)) {
                     continue;
                 }
 
@@ -99,14 +99,14 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
 
             for (Map<String, Object> locationData : locations) {
                 String locationName = locationData.get("name").toString();
-                if (locationRepository.existsByName(locationName)) {
+                String airportIata = locationData.get("airportIata").toString();
+                if (locationRepository.existsByNameAndAndTerminal_Airport_Iata(locationName, airportIata)) {
                     continue;
                 }
 
                 String terminalName = locationData.get("terminalName").toString();
-                String airportName = locationData.get("airportName").toString();
 
-                Terminal parentTerminal = terminalRepository.findByNameAndAirport_Name(terminalName, airportName)
+                Terminal parentTerminal = terminalRepository.findByNameAndAirport_Iata(terminalName, airportIata)
                         .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.TERMINAL_NOT_FOUND));
 
                 String typeString = locationData.get("type").toString();
