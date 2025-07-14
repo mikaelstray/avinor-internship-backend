@@ -18,4 +18,6 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     boolean existsByNameAndAndTerminal_Airport_Iata(String name, String terminalAirportIata);
 
     List<Location> findAllByTerminal_Id(Long terminalId);
+
+    List<Location> findByTerminal_Airport_Iata(String terminalAirportIata);
 }
