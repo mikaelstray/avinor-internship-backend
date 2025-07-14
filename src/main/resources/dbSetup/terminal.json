@@ -2,7 +2,7 @@
   {
     "name": "A",
     "numberOfGates": 2,
-    "airportName": "Oslo Lufthavn"
+    "airportIata": "OSL"
   }
 
 ]

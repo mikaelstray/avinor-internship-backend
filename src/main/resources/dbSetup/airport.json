@@ -1,10 +1,12 @@
 [
   {
+    "iata": "OSL",
     "name": "Oslo Lufthavn",
     "city": "Oslo",
     "schengen": true
   },
   {
+    "iata": "BGO",
     "name": "Flesland",
     "city": "Bergen",
     "schengen": true
