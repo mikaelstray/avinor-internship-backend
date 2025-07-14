@@ -46,13 +46,14 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
             List<Map<String, Object>> airports = objectMapper.readValue(inputStream, new TypeReference<>() {});
 
             for (Map<String, Object> airportData : airports) {
-                String airportName = airportData.get("name").toString();
-                if (airportRepository.existsByName(airportName)) {
+                String airportIata = airportData.get("iata").toString();
+                if (airportRepository.existsByName(airportIata)) {
                     continue;
                 }
 
                 Airport airport = new Airport()
-                        .setName(airportName)
+                        .setIata(airportData.get("iata").toString())
+                        .setName(airportData.get("name").toString())
                         .setCity(airportData.get("city").toString())
                         .setSchengen((Boolean) airportData.get("schengen"));
 
@@ -70,13 +71,13 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
 
             for (Map<String, Object> terminalData : terminals) {
                 String terminalName = terminalData.get("name").toString();
-                String airportName = terminalData.get("airportName").toString();
+                String airportIata = terminalData.get("airportIata").toString();
 
-                if (terminalRepository.existsByNameAndAirport_Name(terminalName, airportName)) {
+                if (terminalRepository.existsByNameAndAirport_Iata(terminalName, airportIata)) {
                     continue;
                 }
 
-                Airport parentAirport = airportRepository.findByName(airportName)
+                Airport parentAirport = airportRepository.findByIata(airportIata)
                         .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.AIRPORT_NOT_FOUND));
 
                 Terminal terminal = new Terminal()

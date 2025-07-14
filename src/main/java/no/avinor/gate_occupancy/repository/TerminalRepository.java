@@ -9,7 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface TerminalRepository extends JpaRepository<Terminal, Long> {
-    Optional<Terminal> findByNameAndAirport_Name(String name, String airportName);
-
+    Optional<Terminal> findByNameAndAirport_Iata(String name, String airportIata);
     boolean existsByNameAndAirport_Name(String name, String airportName);
+
+    List<Terminal> findByAirport_Iata(String airportIata);
+
 }
