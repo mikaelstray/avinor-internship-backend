@@ -1,9 +1,27 @@
 [
   {
     "name": "A",
-    "numberOfGates": 2,
+    "numberOfGates": 8,
     "airportName": "Oslo Lufthavn"
+  },
+  {
+    "name": "B",
+    "numberOfGates": 6,
+    "airportName": "Oslo Lufthavn"
+  },
+  {
+    "name": "C",
+    "numberOfGates": 7,
+    "airportName": "Bergen lufthavn"
+  },
+  {
+    "name": "D",
+    "numberOfGates": 5,
+    "airportName": "Trondheim lufthavn"
+  },
+  {
+    "name": "F",
+    "numberOfGates": 6,
+    "airportName": "Stavanger lufthavn"
   }
-
 ]
-

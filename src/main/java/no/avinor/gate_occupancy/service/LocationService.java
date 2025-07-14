@@ -14,6 +14,8 @@ import no.avinor.gate_occupancy.repository.LocationRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -33,6 +35,10 @@ public class LocationService {
     public LocationLiveOccupancy getLocationLiveStatus(Long id) {
         return liveRepository.findByLocation_Id(id)
                 .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.LIVE_STATUS_NOT_FOUND));
+    }
+
+    public List<Location> getAllByTerminal(Long terminalId) {
+        return locationRepository.findAllByTerminal_Id(terminalId);
     }
 
     @Transactional

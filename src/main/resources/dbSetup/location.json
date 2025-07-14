@@ -1,15 +1,34 @@
 [
-  {
-    "name": "Gate A1",
-    "capacity": 10,
-    "type": "GATE",
-    "zoneName": "Sone 1"
-  },
-  {
-    "name": "Gate A2",
-    "capacity": 10,
-    "type": "GATE",
-    "zoneName": "Sone 1"
-  }
+  { "name": "A2", "capacity": 18, "type": "GATE", "terminalName": "A", "airportName": "Oslo Lufthavn" },
+  { "name": "A4", "capacity": 25, "type": "GATE", "terminalName": "A", "airportName": "Oslo Lufthavn" },
+  { "name": "A6", "capacity": 15, "type": "GATE", "terminalName": "A", "airportName": "Oslo Lufthavn" },
+  { "name": "A8", "capacity": 29, "type": "GATE", "terminalName": "A", "airportName": "Oslo Lufthavn" },
+  { "name": "A10", "capacity": 11, "type": "GATE", "terminalName": "A", "airportName": "Oslo Lufthavn" },
+  { "name": "A12", "capacity": 23, "type": "GATE", "terminalName": "A", "airportName": "Oslo Lufthavn" },
+  { "name": "A14", "capacity": 9, "type": "GATE", "terminalName": "A", "airportName": "Oslo Lufthavn" },
+  { "name": "A16", "capacity": 16, "type": "GATE", "terminalName": "A", "airportName": "Oslo Lufthavn" },
+  { "name": "B2", "capacity": 28, "type": "GATE", "terminalName": "B", "airportName": "Oslo Lufthavn" },
+  { "name": "B4", "capacity": 14, "type": "GATE", "terminalName": "B", "airportName": "Oslo Lufthavn" },
+  { "name": "B6", "capacity": 20, "type": "GATE", "terminalName": "B", "airportName": "Oslo Lufthavn" },
+  { "name": "B8", "capacity": 26, "type": "GATE", "terminalName": "B", "airportName": "Oslo Lufthavn" },
+  { "name": "B10", "capacity": 10, "type": "GATE", "terminalName": "B", "airportName": "Oslo Lufthavn" },
+  { "name": "B12", "capacity": 22, "type": "GATE", "terminalName": "B", "airportName": "Oslo Lufthavn" },
+  { "name": "C2", "capacity": 19, "type": "GATE", "terminalName": "C", "airportName": "Bergen lufthavn" },
+  { "name": "C4", "capacity": 27, "type": "GATE", "terminalName": "C", "airportName": "Bergen lufthavn" },
+  { "name": "C6", "capacity": 13, "type": "GATE", "terminalName": "C", "airportName": "Bergen lufthavn" },
+  { "name": "C8", "capacity": 8, "type": "GATE", "terminalName": "C", "airportName": "Bergen lufthavn" },
+  { "name": "C10", "capacity": 25, "type": "GATE", "terminalName": "C", "airportName": "Bergen lufthavn" },
+  { "name": "C12", "capacity": 18, "type": "GATE", "terminalName": "C", "airportName": "Bergen lufthavn" },
+  { "name": "C14", "capacity": 21, "type": "GATE", "terminalName": "C", "airportName": "Bergen lufthavn" },
+  { "name": "D2", "capacity": 7, "type": "GATE", "terminalName": "D", "airportName": "Trondheim lufthavn" },
+  { "name": "D4", "capacity": 24, "type": "GATE", "terminalName": "D", "airportName": "Trondheim lufthavn" },
+  { "name": "D6", "capacity": 17, "type": "GATE", "terminalName": "D", "airportName": "Trondheim lufthavn" },
+  { "name": "D8", "capacity": 28, "type": "GATE", "terminalName": "D", "airportName": "Trondheim lufthavn" },
+  { "name": "D10", "capacity": 12, "type": "GATE", "terminalName": "D", "airportName": "Trondheim lufthavn" },
+  { "name": "F2", "capacity": 30, "type": "GATE", "terminalName": "F", "airportName": "Stavanger lufthavn" },
+  { "name": "F4", "capacity": 16, "type": "GATE", "terminalName": "F", "airportName": "Stavanger lufthavn" },
+  { "name": "F6", "capacity": 22, "type": "GATE", "terminalName": "F", "airportName": "Stavanger lufthavn" },
+  { "name": "F8", "capacity": 11, "type": "GATE", "terminalName": "F", "airportName": "Stavanger lufthavn" },
+  { "name": "F10", "capacity": 26, "type": "GATE", "terminalName": "F", "airportName": "Stavanger lufthavn" },
+  { "name": "F12", "capacity": 19, "type": "GATE", "terminalName": "F", "airportName": "Stavanger lufthavn" }
 ]
-

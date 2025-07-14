@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/locations")
 @RequiredArgsConstructor
@@ -39,6 +41,14 @@ public class LocationController {
         LocationOccupancyStatus response = liveMapper.toDto(locationService.updatePax(id, request));
         logger.info("Controller: pax successfully updated");
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/terminal/{terminalId}")
+    public ResponseEntity<List<LocationLiteResponse>> getAllByTerminal(
+            @PathVariable Long terminalId
+    ) {
+        List<LocationLiteResponse> responseList = locationMapper.toLiteResponseList(locationService.getAllByTerminal(terminalId));
+        return ResponseEntity.ok(responseList);
     }
 
     @GetMapping("/{id}")
