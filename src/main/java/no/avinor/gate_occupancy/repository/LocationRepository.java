@@ -20,4 +20,6 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     List<Location> findAllByTerminal_Id(Long terminalId);
 
     List<Location> findByTerminal_Airport_Iata(String terminalAirportIata);
+
+    Location findByNameAndTerminal_Airport_Iata(String name, String terminalAirportIata);
 }

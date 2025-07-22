@@ -18,6 +18,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.util.List;
@@ -33,11 +34,13 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
     private final TerminalRepository terminalRepository;
     private final ObjectMapper objectMapper;
 
+    @Transactional
     @Override
     public void onApplicationEvent(@NotNull ApplicationReadyEvent event) {
         loadAirportData();
         loadTerminalData();
         loadLocationData();
+        loadNearbyLocationData();
     }
 
     private void loadAirportData() {
@@ -123,5 +126,47 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
         } catch (Exception e) {
             throw new RuntimeException("Error loading location data", e);
         }
+    }
+
+    @Transactional
+    protected void loadNearbyLocationData() {
+        log.info("Loading nearby locations...");
+        try (InputStream inputStream = new ClassPathResource("dbSetup/nearby_locations.json").getInputStream()) {
+            Map<String, List<String>> nearbyMap = objectMapper.readValue(inputStream, new TypeReference<>() {});
+
+            for (Map.Entry<String, List<String>> entry : nearbyMap.entrySet()) {
+                String sourceLocationKey = entry.getKey();
+                List<String> neighborKeys = entry.getValue();
+
+                Location sourceLocation = findLocationByKey(sourceLocationKey);
+                if (sourceLocation == null) {
+                    log.warn("Source location not found for key: {}", sourceLocationKey);
+                    continue;
+                }
+
+                for (String neighborKey : neighborKeys) {
+                    Location neighborLocation = findLocationByKey(neighborKey);
+                    if (neighborLocation != null) {
+                        sourceLocation.getNearbyLocations().add(neighborLocation);
+                    } else {
+                        log.warn("Neighbor location not found for key: {}", neighborKey);
+                    }
+                }
+                locationRepository.save(sourceLocation);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error loading nearby location data", e);
+        }
+    }
+
+
+    private Location findLocationByKey(String key) {
+        String[] parts = key.split("_");
+        if (parts.length != 2) return null;
+
+        String airportIata = parts[0];
+        String locationName = parts[1];
+
+        return locationRepository.findByNameAndTerminal_Airport_Iata(locationName, airportIata);
     }
 }

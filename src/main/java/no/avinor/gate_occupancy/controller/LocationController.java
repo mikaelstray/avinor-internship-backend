@@ -3,6 +3,7 @@ package no.avinor.gate_occupancy.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import no.avinor.gate_occupancy.model.dto.location.LocationLiteResponse;
+import no.avinor.gate_occupancy.model.dto.location.LocationResponse;
 import no.avinor.gate_occupancy.model.dto.occupancyStatus.LocationOccupancyStatus;
 import no.avinor.gate_occupancy.model.dto.occupancyStatus.UpdateOccupancyRequest;
 import no.avinor.gate_occupancy.model.mappers.LiveOccupancyMapper;
@@ -52,11 +53,11 @@ public class LocationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LocationLiteResponse> getLocation(
+    public ResponseEntity<LocationResponse> getLocation(
             @PathVariable Long id
     ) {
-        logger.info("Controller: Getting lite location dto with id: {} ", id);
-        LocationLiteResponse response = locationMapper.toLiteResponse(locationService.getLocationById(id));
+        logger.info("Controller: Getting location dto with id: {} ", id);
+        LocationResponse response = locationMapper.toResponse(locationService.getLocationById(id));
         logger.info("Controller: Location successfully retrieved");
         return ResponseEntity.ok(response);
     }
