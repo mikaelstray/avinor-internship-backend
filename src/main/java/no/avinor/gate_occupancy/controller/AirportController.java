@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import no.avinor.gate_occupancy.model.dto.airport.AirportLiteResponse;
 import no.avinor.gate_occupancy.model.dto.location.LocationLiteResponse;
 import no.avinor.gate_occupancy.model.dto.terminal.TerminalLiteResponse;
+import no.avinor.gate_occupancy.model.dto.terminal.TerminalResponse;
 import no.avinor.gate_occupancy.model.mappers.AirportMapper;
 import no.avinor.gate_occupancy.model.mappers.LocationMapper;
 import no.avinor.gate_occupancy.model.mappers.TerminalMapper;
@@ -36,10 +37,10 @@ public class AirportController {
     }
 
     @GetMapping("/{iata}/terminals")
-    public ResponseEntity<List<TerminalLiteResponse>> getTerminalsByAirportIata(
+    public ResponseEntity<List<TerminalResponse>> getTerminalsByAirportIata(
             @PathVariable String iata
     ) {
-        List<TerminalLiteResponse> response = terminalMapper.toLiteResponseList(airportService.getTerminalsByAirportIata(iata));
+        List<TerminalResponse> response = terminalMapper.toResponseList(airportService.getTerminalsByAirportIata(iata));
         return ResponseEntity.ok(response);
     }
 

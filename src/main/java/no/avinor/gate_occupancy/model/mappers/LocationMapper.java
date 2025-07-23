@@ -9,19 +9,22 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
 public class LocationMapper {
-
-    private final TerminalMapper terminalMapper;
 
     public LocationResponse toResponse(Location location) {
         if (location == null) {
             return null;
         }
 
-        TerminalLiteResponse terminalResponse = terminalMapper.toLiteResponse(location.getTerminal());
+        TerminalLiteResponse terminalResponse = new TerminalLiteResponse(
+                    location.getTerminal().getId(),
+                    location.getTerminal().getName()
+            );
+
 
         List<LocationLiteResponse> nearbyLocationsResponse = location.getNearbyLocations() != null
                 ? location.getNearbyLocations().stream()
