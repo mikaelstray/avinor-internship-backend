@@ -12,7 +12,8 @@ public class LiveOccupancyMapper {
         return new LocationOccupancyStatus(
                 liveOccupancy.getId(),
                 liveOccupancy.getPax(),
-                liveOccupancy.getUpdatedTime()
+                liveOccupancy.getUpdatedTime(),
+                liveOccupancy.getLocation().getId()
         );
     }
 

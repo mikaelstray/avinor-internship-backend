@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public record LocationOccupancyStatus(
         Long id,
         Integer pax,
-        LocalDateTime updatedAt
+        LocalDateTime updatedAt,
+        Long locationId
 ) {
 }
