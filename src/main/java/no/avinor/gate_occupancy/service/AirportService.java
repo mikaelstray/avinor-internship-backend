@@ -28,7 +28,7 @@ public class AirportService {
     }
 
     public List<Terminal> getTerminalsByAirportIata(String iata) {
-        return terminalRepository.findByAirport_Iata(iata);
+        return terminalRepository.findByAirport_Iata_SortedNatural(iata);
     }
 
     public List<Location> getLocationsByAirportIata(String iata) {

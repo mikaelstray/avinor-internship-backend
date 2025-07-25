@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -42,7 +43,7 @@ public class Terminal {
     private Airport airport;
 
     @OneToMany(mappedBy = "terminal", fetch = FetchType.LAZY)
-    private Set<Location> locations;
+    private List<Location> locations;
 
 }
 
