@@ -9,10 +9,15 @@ import no.avinor.gate_occupancy.model.entities.Location;
 import no.avinor.gate_occupancy.model.entities.LocationLiveOccupancy;
 import no.avinor.gate_occupancy.model.entities.LocationOccupancyHistory;
 import no.avinor.gate_occupancy.model.entities.LocationRelationship;
+import no.avinor.gate_occupancy.model.entities.LocationType;
 import no.avinor.gate_occupancy.repository.LocationLiveOccupancyRepository;
 import no.avinor.gate_occupancy.repository.LocationOccupancyHistoryRepository;
 import no.avinor.gate_occupancy.repository.LocationRelationshipRepository;
 import no.avinor.gate_occupancy.repository.LocationRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,8 +49,29 @@ public class LocationService {
         return locationRepository.findAllByTerminal_Id(terminalId);
     }
 
-    public List<LocationRelationship> getNearby(Long locationId) {
-        return relationshipRepository.findAllBySourceLocation_Id(locationId);
+    public Page<LocationRelationship> getNearbyGates(Long locationId, Pageable pageable) {
+        Sort.Order sortOrder = pageable.getSort().get().findFirst()
+                .orElse(Sort.Order.asc("walkingTimeInMinutes"));
+
+        String sortField = switch (sortOrder.getProperty()) {
+            case "walkingTime" -> "walkingTimeInMinutes";
+            case "name" -> "targetLocation.name";
+            default ->
+                    throw new IllegalArgumentException("Sorting by '" + sortOrder.getProperty() + "' is not allowed.");
+        };
+
+        Pageable newPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.ASC, sortField) //TODO hente fra url
+        );
+
+
+        return relationshipRepository.findAllBySourceLocation_IdAndTargetLocation_Type(
+                locationId,
+                LocationType.GATE,
+                newPageable
+        );
     }
 
     @Transactional
