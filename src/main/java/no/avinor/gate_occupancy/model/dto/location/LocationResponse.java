@@ -10,5 +10,5 @@ public record LocationResponse(
         Integer capacity,
         String type,
         TerminalLiteResponse terminal,
-        List<LocationLiteResponse> nearbyLocations
+        List<LocationRelationshipResponse> nearbyLocations
 ) {}

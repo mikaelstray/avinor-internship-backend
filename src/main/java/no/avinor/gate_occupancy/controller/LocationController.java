@@ -3,11 +3,13 @@ package no.avinor.gate_occupancy.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import no.avinor.gate_occupancy.model.dto.location.LocationLiteResponse;
+import no.avinor.gate_occupancy.model.dto.location.LocationRelationshipResponse;
 import no.avinor.gate_occupancy.model.dto.location.LocationResponse;
 import no.avinor.gate_occupancy.model.dto.occupancyStatus.LocationOccupancyStatus;
 import no.avinor.gate_occupancy.model.dto.occupancyStatus.UpdateOccupancyRequest;
 import no.avinor.gate_occupancy.model.mappers.LiveOccupancyMapper;
 import no.avinor.gate_occupancy.model.mappers.LocationMapper;
+import no.avinor.gate_occupancy.model.mappers.LocationRelationMapper;
 import no.avinor.gate_occupancy.service.LocationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,6 +34,7 @@ public class LocationController {
     private final LocationService locationService;
     private final LocationMapper locationMapper;
     private final LiveOccupancyMapper liveMapper;
+    private final LocationRelationMapper relationMapper;
 
     @PatchMapping("/{id}/pax")
     public ResponseEntity<LocationOccupancyStatus> updatePax(
@@ -69,6 +72,15 @@ public class LocationController {
         logger.info("Getting live status for location with id: {}", id);
         LocationOccupancyStatus response = liveMapper.toDto(locationService.getLocationLiveStatus(id));
         logger.info("Successfully retrieved live status");
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/nearby")
+    public ResponseEntity<List<LocationRelationshipResponse>> getNearby(
+            @PathVariable Long id
+    ) {
+        List<LocationRelationshipResponse> response = relationMapper.toDtoList(locationService.getNearby(id));
+        logger.debug("Returning {} nearby locations for ID {}: {}", response.size(), id, response);
         return ResponseEntity.ok(response);
     }
 }

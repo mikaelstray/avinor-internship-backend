@@ -9,9 +9,11 @@ import no.avinor.gate_occupancy.exception.CustomErrorMessage;
 import no.avinor.gate_occupancy.exception.customExceptions.AppEntityNotFoundException;
 import no.avinor.gate_occupancy.model.entities.Airport;
 import no.avinor.gate_occupancy.model.entities.Location;
+import no.avinor.gate_occupancy.model.entities.LocationRelationship;
 import no.avinor.gate_occupancy.model.entities.LocationType;
 import no.avinor.gate_occupancy.model.entities.Terminal;
 import no.avinor.gate_occupancy.repository.AirportRepository;
+import no.avinor.gate_occupancy.repository.LocationRelationshipRepository;
 import no.avinor.gate_occupancy.repository.LocationRepository;
 import no.avinor.gate_occupancy.repository.TerminalRepository;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -32,6 +34,7 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
     private final LocationRepository locationRepository;
     private final AirportRepository airportRepository;
     private final TerminalRepository terminalRepository;
+    private final LocationRelationshipRepository relationshipRepository;
     private final ObjectMapper objectMapper;
 
     @Transactional
@@ -130,13 +133,18 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
 
     @Transactional
     protected void loadNearbyLocationData() {
+        if (relationshipRepository.count() > 0) {
+            log.info("Nearby locations already exist. Skipping.");
+            return;
+        }
         log.info("Loading nearby locations...");
         try (InputStream inputStream = new ClassPathResource("dbSetup/nearby_locations.json").getInputStream()) {
-            Map<String, List<String>> nearbyMap = objectMapper.readValue(inputStream, new TypeReference<>() {});
 
-            for (Map.Entry<String, List<String>> entry : nearbyMap.entrySet()) {
+            Map<String, List<Map<String, Object>>> nearbyMap = objectMapper.readValue(inputStream, new TypeReference<>() {});
+
+            for (Map.Entry<String, List<Map<String, Object>>> entry : nearbyMap.entrySet()) {
                 String sourceLocationKey = entry.getKey();
-                List<String> neighborKeys = entry.getValue();
+                List<Map<String, Object>> neighborObjects = entry.getValue();
 
                 Location sourceLocation = findLocationByKey(sourceLocationKey);
                 if (sourceLocation == null) {
@@ -144,15 +152,23 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
                     continue;
                 }
 
-                for (String neighborKey : neighborKeys) {
+                for (Map<String, Object> neighborInfo : neighborObjects) {
+                    String neighborKey = neighborInfo.get("neighborKey").toString();
+                    Integer walkingTime = (Integer) neighborInfo.get("walkingTimeInMinutes");
+
                     Location neighborLocation = findLocationByKey(neighborKey);
+
                     if (neighborLocation != null) {
-                        sourceLocation.getNearbyLocations().add(neighborLocation);
+                        LocationRelationship relationship = new LocationRelationship()
+                                .setSourceLocation(sourceLocation)
+                                .setTargetLocation(neighborLocation)
+                                .setWalkingTimeInMinutes(walkingTime);
+
+                        relationshipRepository.save(relationship);
                     } else {
                         log.warn("Neighbor location not found for key: {}", neighborKey);
                     }
                 }
-                locationRepository.save(sourceLocation);
             }
         } catch (Exception e) {
             throw new RuntimeException("Error loading nearby location data", e);

@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -49,13 +50,11 @@ public class Location {
     @JoinColumn(name = "terminal_id")
     private Terminal terminal;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "location_nearby",
-            joinColumns = @JoinColumn(name = "location_id"),
-            inverseJoinColumns = @JoinColumn(name = "nearby_location_id")
-    )
-    private Set<Location> nearbyLocations = new HashSet<>();
+    @OneToMany(mappedBy = "sourceLocation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<LocationRelationship> relationships = new HashSet<>();
+
+    @OneToMany(mappedBy = "targetLocation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<LocationRelationship> referencedBy = new HashSet<>();
 }
 
 

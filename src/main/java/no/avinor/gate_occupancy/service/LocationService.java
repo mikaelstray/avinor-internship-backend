@@ -8,8 +8,10 @@ import no.avinor.gate_occupancy.model.dto.occupancyStatus.UpdateOccupancyRequest
 import no.avinor.gate_occupancy.model.entities.Location;
 import no.avinor.gate_occupancy.model.entities.LocationLiveOccupancy;
 import no.avinor.gate_occupancy.model.entities.LocationOccupancyHistory;
+import no.avinor.gate_occupancy.model.entities.LocationRelationship;
 import no.avinor.gate_occupancy.repository.LocationLiveOccupancyRepository;
 import no.avinor.gate_occupancy.repository.LocationOccupancyHistoryRepository;
+import no.avinor.gate_occupancy.repository.LocationRelationshipRepository;
 import no.avinor.gate_occupancy.repository.LocationRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,7 @@ public class LocationService {
     private final LocationRepository locationRepository;
     private final LocationLiveOccupancyRepository liveRepository;
     private final LocationOccupancyHistoryRepository historyRepository;
+    private final LocationRelationshipRepository relationshipRepository;
     private final PaxNotifierService paxNotifierService;
 
     public Location getLocationById(Long id) {
@@ -39,6 +42,10 @@ public class LocationService {
 
     public List<Location> getAllByTerminal(Long terminalId) {
         return locationRepository.findAllByTerminal_Id(terminalId);
+    }
+
+    public List<LocationRelationship> getNearby(Long locationId) {
+        return relationshipRepository.findAllBySourceLocation_Id(locationId);
     }
 
     @Transactional

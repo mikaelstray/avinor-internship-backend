@@ -2,6 +2,7 @@ package no.avinor.gate_occupancy.model.mappers;
 
 import lombok.RequiredArgsConstructor;
 import no.avinor.gate_occupancy.model.dto.location.LocationLiteResponse;
+import no.avinor.gate_occupancy.model.dto.location.LocationRelationshipResponse;
 import no.avinor.gate_occupancy.model.dto.location.LocationResponse;
 import no.avinor.gate_occupancy.model.dto.terminal.TerminalLiteResponse;
 import no.avinor.gate_occupancy.model.entities.Location;
@@ -15,6 +16,8 @@ import java.util.Set;
 @Component
 public class LocationMapper {
 
+    private final LocationRelationMapper relationMapper;
+
     public LocationResponse toResponse(Location location) {
         if (location == null) {
             return null;
@@ -26,9 +29,9 @@ public class LocationMapper {
             );
 
 
-        List<LocationLiteResponse> nearbyLocationsResponse = location.getNearbyLocations() != null
-                ? location.getNearbyLocations().stream()
-                .map(this::toLiteResponse)
+        List<LocationRelationshipResponse> nearbyLocationsResponse = location.getRelationships() != null
+                ? location.getRelationships().stream()
+                .map(relationMapper::toDto)
                 .toList()
                 : Collections.emptyList();
 
