@@ -71,6 +71,20 @@ public class LocationController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{id}/occupancy")
+    public ResponseEntity<LocationOccupancyStatus> getLiveStatus(
+            @PathVariable Long id
+    ) {
+        logger.info("Getting live status for location with id: {}", id);
+        Optional<LocationLiveOccupancy> liveStatusOpt = locationService.getLocationLiveStatus(id);
+        LocationOccupancyStatus response = liveStatusOpt
+                .map(liveMapper::toDto)
+                .orElseGet(() -> liveMapper.toUnavailableDto(id));
+
+        logger.info("Successfully retrieved live status");
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/{locationId}/nearby/gates")
     public ResponseEntity<Page<LocationRelationshipResponse>> getNearbyGates(
             @PathVariable Long locationId,
