@@ -14,14 +14,12 @@ public interface TerminalRepository extends JpaRepository<Terminal, Long> {
     Optional<Terminal> findByNameAndAirport_Iata(String name, String airportIata);
     boolean existsByNameAndAirport_Iata(String name, String airportIata);
 
-    @Query(value = """
-        SELECT t.*
-        FROM terminal t
-        JOIN airport a ON t.airport_id = a.id
-        WHERE a.iata_code = :airportIata
-        ORDER BY
-            LEFT(t.name, PATINDEX('%[0-9]%', t.name + '0') - 1),
-            TRY_CAST(SUBSTRING(t.name, PATINDEX('%[0-9]%', t.name + '0'), LEN(t.name)) AS INT)
-    """, nativeQuery = true)
-    List<Terminal> findByAirport_Iata_SortedNatural(@Param("airportIata") String airportIata);
+    @Query("""
+        SELECT DISTINCT t FROM Terminal t
+        LEFT JOIN FETCH t.locations l
+        WHERE t.airport.iata = :iata
+        AND (l.type = no.avinor.gate_occupancy.model.entities.LocationType.GATE OR l IS NULL)
+        ORDER BY t.name
+    """)
+    List<Terminal> findTerminalsWithGatesByAirportIata(@Param("iata") String iata);
 }

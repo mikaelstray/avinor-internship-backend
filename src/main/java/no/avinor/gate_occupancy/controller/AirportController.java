@@ -3,7 +3,6 @@ package no.avinor.gate_occupancy.controller;
 import lombok.RequiredArgsConstructor;
 import no.avinor.gate_occupancy.model.dto.airport.AirportLiteResponse;
 import no.avinor.gate_occupancy.model.dto.location.LocationLiteResponse;
-import no.avinor.gate_occupancy.model.dto.terminal.TerminalLiteResponse;
 import no.avinor.gate_occupancy.model.dto.terminal.TerminalResponse;
 import no.avinor.gate_occupancy.model.mappers.AirportMapper;
 import no.avinor.gate_occupancy.model.mappers.LocationMapper;
@@ -44,11 +43,11 @@ public class AirportController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{iata}/locations")
+    @GetMapping("/{iata}/gates")
     public ResponseEntity<List<LocationLiteResponse>> getLocationsByAirportIata(
             @PathVariable String iata
     ) {
-        List<LocationLiteResponse> response = locationMapper.toLiteResponseList(airportService.getLocationsByAirportIata(iata));
+        List<LocationLiteResponse> response = locationMapper.toLiteResponseList(airportService.getGatesByAirportIata(iata));
         return ResponseEntity.ok(response);
     }
 

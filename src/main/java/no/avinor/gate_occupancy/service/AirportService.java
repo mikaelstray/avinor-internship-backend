@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.avinor.gate_occupancy.model.entities.Airport;
 import no.avinor.gate_occupancy.model.entities.Location;
+import no.avinor.gate_occupancy.model.entities.LocationType;
 import no.avinor.gate_occupancy.model.entities.Terminal;
 import no.avinor.gate_occupancy.repository.AirportRepository;
 import no.avinor.gate_occupancy.repository.LocationRepository;
@@ -28,10 +29,10 @@ public class AirportService {
     }
 
     public List<Terminal> getTerminalsByAirportIata(String iata) {
-        return terminalRepository.findByAirport_Iata_SortedNatural(iata);
+        return terminalRepository.findTerminalsWithGatesByAirportIata(iata);
     }
 
-    public List<Location> getLocationsByAirportIata(String iata) {
-        return locationRepository.findByTerminal_Airport_Iata(iata);
+    public List<Location> getGatesByAirportIata(String iata) {
+        return locationRepository.findByTypeAndTerminal_Airport_Iata(LocationType.GATE, iata);
     }
 }

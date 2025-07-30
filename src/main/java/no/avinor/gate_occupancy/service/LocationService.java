@@ -22,6 +22,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -35,43 +38,23 @@ public class LocationService {
     private final LocationRelationshipRepository relationshipRepository;
     private final PaxNotifierService paxNotifierService;
 
+    private static final Map<String, String> ALLOWED_SORT_FIELDS = Map.of(
+            "walkingTime", "walkingTimeInMinutes",
+            "name", "targetLocation.name"
+    );
+
     public Location getLocationById(Long id) {
         return locationRepository.findById(id)
                 .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.LOCATION_NOT_FOUND));
     }
 
-    public LocationLiveOccupancy getLocationLiveStatus(Long id) {
-        return liveRepository.findByLocation_Id(id)
-                .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.LIVE_STATUS_NOT_FOUND));
+    public Optional<LocationLiveOccupancy> getLocationLiveStatus(Long id) {
+        return liveRepository.findByLocation_Id(id);
+
     }
 
     public List<Location> getAllByTerminal(Long terminalId) {
         return locationRepository.findAllByTerminal_Id(terminalId);
-    }
-
-    public Page<LocationRelationship> getNearbyGates(Long locationId, Pageable pageable) {
-        Sort.Order sortOrder = pageable.getSort().get().findFirst()
-                .orElse(Sort.Order.asc("walkingTimeInMinutes"));
-
-        String sortField = switch (sortOrder.getProperty()) {
-            case "walkingTime" -> "walkingTimeInMinutes";
-            case "name" -> "targetLocation.name";
-            default ->
-                    throw new IllegalArgumentException("Sorting by '" + sortOrder.getProperty() + "' is not allowed.");
-        };
-
-        Pageable newPageable = PageRequest.of(
-                pageable.getPageNumber(),
-                pageable.getPageSize(),
-                Sort.by(Sort.Direction.ASC, sortField) //TODO hente fra url
-        );
-
-
-        return relationshipRepository.findAllBySourceLocation_IdAndTargetLocation_Type(
-                locationId,
-                LocationType.GATE,
-                newPageable
-        );
     }
 
     @Transactional
@@ -80,7 +63,7 @@ public class LocationService {
                 .orElseThrow(() -> new AppEntityNotFoundException(CustomErrorMessage.LOCATION_NOT_FOUND));
 
         LocationLiveOccupancy liveStatus = liveRepository.findByLocation_Id(locationId)
-                        .orElse(new LocationLiveOccupancy().setLocation(location));
+                .orElse(new LocationLiveOccupancy().setLocation(location));
 
         liveStatus.setPax(request.newPax());
         liveRepository.save(liveStatus);
@@ -92,5 +75,47 @@ public class LocationService {
 
         paxNotifierService.notifyPaxUpdate(liveStatus); //TODO: convert to dto
         return liveStatus;
+    }
+
+
+    public Page<LocationRelationship> getNearbyGates(Long locationId, Pageable pageable) {
+        Pageable validatedPageable = buildValidatedPageable(pageable);
+
+        return relationshipRepository.findAllBySourceLocation_IdAndTargetLocation_Type(
+                locationId,
+                LocationType.GATE,
+                validatedPageable
+        );
+    }
+
+    public List<LocationRelationship> getNearbyServings(Long locationId, Sort sort) {
+        Sort validatedSort = buildValidatedPageable(PageRequest.of(0, 999, sort)).getSort();
+
+        return relationshipRepository.findAllBySourceLocation_IdAndTargetLocation_Type(
+                locationId,
+                LocationType.SERVING,
+                validatedSort
+        );
+    }
+
+    private Pageable buildValidatedPageable(Pageable originalPageable) {
+        List<Sort.Order> validatedOrders = originalPageable.getSort().stream()
+                .map(order -> {
+                    String clientFieldName = order.getProperty();
+                    String entityFieldName = ALLOWED_SORT_FIELDS.get(clientFieldName);
+
+                    if (entityFieldName == null) {
+                        throw new IllegalArgumentException("Sorting by '" + clientFieldName + "' is not allowed.");
+                    }
+
+                    return new Sort.Order(order.getDirection(), entityFieldName);
+                })
+                .toList();
+
+        return PageRequest.of(
+                originalPageable.getPageNumber(),
+                originalPageable.getPageSize(),
+                Sort.by(validatedOrders)
+        );
     }
 }

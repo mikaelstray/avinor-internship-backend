@@ -7,6 +7,7 @@ import no.avinor.gate_occupancy.model.dto.location.LocationRelationshipResponse;
 import no.avinor.gate_occupancy.model.dto.location.LocationResponse;
 import no.avinor.gate_occupancy.model.dto.occupancyStatus.LocationOccupancyStatus;
 import no.avinor.gate_occupancy.model.dto.occupancyStatus.UpdateOccupancyRequest;
+import no.avinor.gate_occupancy.model.entities.LocationLiveOccupancy;
 import no.avinor.gate_occupancy.model.entities.LocationRelationship;
 import no.avinor.gate_occupancy.model.mappers.LiveOccupancyMapper;
 import no.avinor.gate_occupancy.model.mappers.LocationMapper;
@@ -16,6 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/locations")
@@ -68,16 +71,6 @@ public class LocationController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}/occupancy")
-    public ResponseEntity<LocationOccupancyStatus> getLiveStatus(
-            @PathVariable Long id
-    ) {
-        logger.info("Getting live status for location with id: {}", id);
-        LocationOccupancyStatus response = liveMapper.toDto(locationService.getLocationLiveStatus(id));
-        logger.info("Successfully retrieved live status");
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/{locationId}/nearby/gates")
     public ResponseEntity<Page<LocationRelationshipResponse>> getNearbyGates(
             @PathVariable Long locationId,
@@ -85,5 +78,14 @@ public class LocationController {
     ) {
         Page<LocationRelationship> relationshipPage = locationService.getNearbyGates(locationId, pageable);
         return ResponseEntity.ok(relationshipPage.map(relationMapper::toDto));
+    }
+
+    @GetMapping("/{locationId}/nearby/servings")
+    public ResponseEntity<List<LocationRelationshipResponse>> getNearbyServings(
+            @PathVariable Long locationId,
+            Sort sort
+    ) {
+        List<LocationRelationshipResponse> response = relationMapper.toDtoList(locationService.getNearbyServings(locationId, sort));
+        return ResponseEntity.ok(response);
     }
 }
