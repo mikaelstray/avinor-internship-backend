@@ -1,5 +1,64 @@
 {
-  "OSL_A12": ["OSL_A10", "OSL_A14"],
-  "OSL_A10": ["OSL_A12"],
-  "OSL_A14": ["OSL_A12"]
+  "OSL_E12": [
+    {
+      "neighborKey": "OSL_E9",
+      "walkingTimeInMinutes": 5
+    },
+    {
+      "neighborKey": "OSL_E2",
+      "walkingTimeInMinutes": 3
+    },
+    {
+      "neighborKey": "OSL_D1",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_B2",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_BIT",
+      "walkingTimeInMinutes": 2
+    },
+    {
+      "neighborKey": "OSL_BIT2",
+      "walkingTimeInMinutes": 2
+    },
+    {
+      "neighborKey": "OSL_BIT3",
+      "walkingTimeInMinutes": 2
+    },
+    {
+      "neighborKey": "OSL_BIT4",
+      "walkingTimeInMinutes": 2
+    },
+    {
+      "neighborKey": "OSL_BIT5",
+      "walkingTimeInMinutes": 2
+    }
+  ],
+  "OSL_E9": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 5
+    }
+  ],
+  "OSL_E2": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 3
+    }
+  ],
+  "OSL_D1": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 8
+    }
+  ],
+  "OSL_BIT": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 2
+    }
+  ]
 }

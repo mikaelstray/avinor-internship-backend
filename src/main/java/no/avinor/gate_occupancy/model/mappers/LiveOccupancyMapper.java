@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 public class LiveOccupancyMapper {
 
     public LocationOccupancyStatus toDto(LocationLiveOccupancy liveOccupancy) {
-        if (liveOccupancy == null) return null;
         return new LocationOccupancyStatus(
+                true,
                 liveOccupancy.getId(),
                 liveOccupancy.getPax(),
                 liveOccupancy.getUpdatedTime(),
@@ -17,4 +17,13 @@ public class LiveOccupancyMapper {
         );
     }
 
+    public LocationOccupancyStatus toUnavailableDto(Long locationId) {
+        return new LocationOccupancyStatus(
+                false,
+                null,
+                null,
+                null,
+                locationId
+        );
+    }
 }

@@ -11,6 +11,21 @@
   },
   {
     "name": "C",
+    "numberOfGates": 1,
+    "airportIata": "OSL"
+  },
+  {
+    "name": "D",
+    "numberOfGates": 1,
+    "airportIata": "OSL"
+  },
+  {
+  "name": "E",
+  "numberOfGates": 3,
+  "airportIata": "OSL"
+  },
+  {
+    "name": "C",
     "numberOfGates": 7,
     "airportIata": "BGO"
   },
