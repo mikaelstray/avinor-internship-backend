@@ -23,7 +23,8 @@ public class LocationRelationMapper {
                 relationship.getTargetLocation().getId(),
                 relationship.getTargetLocation().getName(),
                 relationship.getTargetLocation().getCapacity(),
-                relationship.getTargetLocation().getType().name()
+                relationship.getTargetLocation().getType().name(),
+                relationship.getTargetLocation().getImageUrl()
         );
 
         return new LocationRelationshipResponse(

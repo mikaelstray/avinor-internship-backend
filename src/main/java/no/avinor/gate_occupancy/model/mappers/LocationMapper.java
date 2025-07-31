@@ -40,6 +40,7 @@ public class LocationMapper {
                 location.getName(),
                 location.getCapacity(),
                 location.getType() != null ? location.getType().name() : null,
+                location.getImageUrl(),
                 terminalResponse,
                 nearbyLocationsResponse
         );
@@ -54,7 +55,8 @@ public class LocationMapper {
                 location.getId(),
                 location.getName(),
                 location.getCapacity(),
-                location.getType() != null ? location.getType().name() : null
+                location.getType() != null ? location.getType().name() : null,
+                location.getImageUrl()
         );
     }
 

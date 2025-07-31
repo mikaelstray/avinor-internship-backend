@@ -4,5 +4,6 @@ public record LocationLiteResponse(
         Long id,
         String name,
         Integer capacity,
-        String type
+        String type,
+        String imageUrl
 ) {}

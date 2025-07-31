@@ -121,6 +121,7 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
                 Location location = new Location()
                         .setTerminal(parentTerminal)
                         .setType(locationType)
+                        .setImageUrl(locationData.get("imageUrl") != null ? locationData.get("imageUrl").toString() : null)
                         .setName(locationName)
                         .setCapacity((Integer) locationData.get("capacity"));
 
@@ -177,11 +178,15 @@ public class MssqlBootstrap implements ApplicationListener<ApplicationReadyEvent
 
 
     private Location findLocationByKey(String key) {
-        String[] parts = key.split("_");
-        if (parts.length != 2) return null;
+        int firstUnderscoreIndex = key.indexOf('_');
 
-        String airportIata = parts[0];
-        String locationName = parts[1];
+        if (firstUnderscoreIndex <= 0 || firstUnderscoreIndex == key.length() - 1) {
+            log.warn("Invalid location key format: {}", key);
+            return null;
+        }
+
+        String airportIata = key.substring(0, firstUnderscoreIndex);
+        String locationName = key.substring(firstUnderscoreIndex + 1);
 
         return locationRepository.findByNameAndTerminal_Airport_Iata(locationName, airportIata);
     }

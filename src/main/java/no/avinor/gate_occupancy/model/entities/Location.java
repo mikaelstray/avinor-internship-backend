@@ -46,6 +46,9 @@ public class Location {
     @Column
     private LocationType type;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "terminal_id")
     private Terminal terminal;

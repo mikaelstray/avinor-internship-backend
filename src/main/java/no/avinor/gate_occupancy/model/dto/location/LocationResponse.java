@@ -9,6 +9,7 @@ public record LocationResponse(
         String name,
         Integer capacity,
         String type,
+        String imageUrl,
         TerminalLiteResponse terminal,
         List<LocationRelationshipResponse> nearbyLocations
 ) {}
