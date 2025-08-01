@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -43,7 +45,7 @@ public class Terminal {
     private Airport airport;
 
     @OneToMany(mappedBy = "terminal", fetch = FetchType.LAZY)
-    private List<Location> locations;
+    private List<Location> locations = new ArrayList<>();
 
 }
 

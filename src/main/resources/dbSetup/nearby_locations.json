@@ -2,7 +2,7 @@
   "OSL_E12": [
     {
       "neighborKey": "OSL_D1",
-      "walkingTimeInMinutes": 5
+      "walkingTimeInMinutes": 1
     },
     {
       "neighborKey": "OSL_E2",
