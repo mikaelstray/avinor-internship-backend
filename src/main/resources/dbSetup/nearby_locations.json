@@ -101,6 +101,14 @@
     {
       "neighborKey": "OSL_E12",
       "walkingTimeInMinutes": 5
+    },
+    {
+      "neighborKey": "OSL_E9",
+      "walkingTimeInMinutes": 7
+    },
+    {
+      "neighborKey": "OSL_B6",
+      "walkingTimeInMinutes": 10
     }
   ],
   "OSL_BIT": [
