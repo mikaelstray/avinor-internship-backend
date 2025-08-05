@@ -1,11 +1,8 @@
 package no.avinor.gate_occupancy.controller;
 
 import lombok.RequiredArgsConstructor;
-import no.avinor.gate_occupancy.model.dto.airport.AirportLiteResponse;
 import no.avinor.gate_occupancy.model.dto.terminal.TerminalLiteResponse;
-import no.avinor.gate_occupancy.model.mappers.AirportMapper;
 import no.avinor.gate_occupancy.model.mappers.TerminalMapper;
-import no.avinor.gate_occupancy.service.AirportService;
 import no.avinor.gate_occupancy.service.TerminalService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +27,4 @@ public class TerminalController {
         List<TerminalLiteResponse> response = terminalMapper.toLiteResponseList(terminalService.getAllTerminals());
         return ResponseEntity.ok(response);
     }
-
-
 }

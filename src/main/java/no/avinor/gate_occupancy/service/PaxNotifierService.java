@@ -1,7 +1,6 @@
 package no.avinor.gate_occupancy.service;
 
 import lombok.RequiredArgsConstructor;
-import no.avinor.gate_occupancy.controller.LocationController;
 import no.avinor.gate_occupancy.model.dto.occupancyStatus.LocationOccupancyStatus;
 import no.avinor.gate_occupancy.model.entities.LocationLiveOccupancy;
 import no.avinor.gate_occupancy.model.mappers.LiveOccupancyMapper;

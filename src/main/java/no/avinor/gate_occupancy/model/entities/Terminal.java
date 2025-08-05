@@ -46,6 +46,5 @@ public class Terminal {
 
     @OneToMany(mappedBy = "terminal", fetch = FetchType.LAZY)
     private List<Location> locations = new ArrayList<>();
-
 }
 

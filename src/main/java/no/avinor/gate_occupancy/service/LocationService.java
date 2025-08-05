@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -73,7 +72,7 @@ public class LocationService {
                 .setPax(request.newPax());
         historyRepository.save(history);
 
-        paxNotifierService.notifyPaxUpdate(liveStatus); //TODO: convert to dto
+        paxNotifierService.notifyPaxUpdate(liveStatus);
         return liveStatus;
     }
 

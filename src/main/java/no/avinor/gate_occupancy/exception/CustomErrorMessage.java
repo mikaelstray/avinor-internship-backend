@@ -14,19 +14,12 @@ public enum CustomErrorMessage {
   LIVE_STATUS_NOT_FOUND             (404, "Live status not found."),
 
 
-  // --- Location Errors ---
   LOCATION_ALREADY_EXISTS    (409, "Location already exists."),
 
-  // --- ... Errors ---
-  INVALID___DATA          (400, "... data is invalid."),
-
-  // ---  errors ---
   LOCATION_NOT_IN_ZONE(404, "Location is not in zone"),
 
-  // --- Authorization ---
   UNAUTHORIZED_OPERATION     (403, "You are not authorized to perform this operation."),
 
-  // --- Generic ---
   INTERNAL_SERVER_ERROR      (500, "An unexpected internal server error occurred.");
 
 
