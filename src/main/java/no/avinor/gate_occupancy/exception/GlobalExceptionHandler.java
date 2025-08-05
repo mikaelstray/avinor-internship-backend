@@ -3,7 +3,9 @@ package no.avinor.gate_occupancy.exception;
 import lombok.NonNull;
 import no.avinor.gate_occupancy.exception.customExceptions.AppEntityNotFoundException;
 import no.avinor.gate_occupancy.exception.customExceptions.EntityOperationException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -38,7 +40,11 @@ public class GlobalExceptionHandler {
             errorMessage.getMessage(),
             request.getDescription(false)
     );
-    return new ResponseEntity<>(errorDetail, HttpStatus.valueOf(errorMessage.getStatus()));
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+
+    return new ResponseEntity<>(errorDetail, headers, HttpStatus.valueOf(errorMessage.getStatus()));
   }
 
   /**
@@ -58,7 +64,11 @@ public class GlobalExceptionHandler {
             e.getMessage(),
             request.getDescription(false)
     );
-    return new ResponseEntity<>(error, status);
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+
+    return new ResponseEntity<>(error, headers, status);
   }
 
   /**
