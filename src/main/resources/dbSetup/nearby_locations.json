@@ -1,0 +1,192 @@
+{
+  "OSL_E12": [
+    {
+      "neighborKey": "OSL_D1",
+      "walkingTimeInMinutes": 1
+    },
+    {
+      "neighborKey": "OSL_E2",
+      "walkingTimeInMinutes": 3
+    },
+    {
+      "neighborKey": "OSL_E8",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_B6",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_B8",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_LETT",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_Northland",
+      "walkingTimeInMinutes": 2
+    },
+    {
+      "neighborKey": "OSL_OLearys",
+      "walkingTimeInMinutes": 2
+    },
+    {
+      "neighborKey": "OSL_Bjørns Backyard",
+      "walkingTimeInMinutes": 2
+    },
+    {
+      "neighborKey": "OSL_Starbucks",
+      "walkingTimeInMinutes": 2
+    },
+    {
+      "neighborKey": "OSL_E9",
+      "walkingTimeInMinutes": 5
+    },
+    {
+      "neighborKey": "OSL_BIT",
+      "walkingTimeInMinutes": 2
+    }
+  ],
+  "OSL_E9": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 5
+    }
+  ],
+  "OSL_E2": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 3
+    },
+    {
+      "neighborKey": "OSL_D1",
+      "walkingTimeInMinutes": 8
+    }
+  ],
+  "OSL_D1": [
+    {
+      "neighborKey": "OSL_D2",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_E2",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_E8",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_BIT",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_LETT",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_MEL Bakeri",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_Trattoria Tavolare",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_Tigerstaden",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 5
+    },
+    {
+      "neighborKey": "OSL_E9",
+      "walkingTimeInMinutes": 7
+    },
+    {
+      "neighborKey": "OSL_B6",
+      "walkingTimeInMinutes": 10
+    }
+  ],
+  "OSL_BIT": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 2
+    },
+    {
+      "neighborKey": "OSL_D1",
+      "walkingTimeInMinutes": 8
+    }
+  ],
+  "OSL_D2": [
+    {
+      "neighborKey": "OSL_D1",
+      "walkingTimeInMinutes": 8
+    }
+  ],
+  "OSL_E8": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_D1",
+      "walkingTimeInMinutes": 8
+    }
+  ],
+  "OSL_LETT": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 8
+    },
+    {
+      "neighborKey": "OSL_D1",
+      "walkingTimeInMinutes": 8
+    }
+  ],
+  "OSL_Northland": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 2
+    }
+  ],
+  "OSL_OLearys": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 2
+    }
+  ],
+  "OSL_Bjørns Backyard": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 2
+    }
+  ],
+  "OSL_Starbucks": [
+    {
+      "neighborKey": "OSL_E12",
+      "walkingTimeInMinutes": 2
+    }
+  ],
+  "OSL_MEL Bakeri": [
+    {
+      "neighborKey": "OSL_D1",
+      "walkingTimeInMinutes": 8
+    }
+  ],
+  "OSL_Trattoria Tavolare": [
+    {
+      "neighborKey": "OSL_D1",
+      "walkingTimeInMinutes": 8
+    }
+  ],
+  "OSL_Tigerstaden": [
+    {
+      "neighborKey": "OSL_D1",
+      "walkingTimeInMinutes": 8
+    }
+  ]
+}

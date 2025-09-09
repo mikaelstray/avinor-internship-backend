@@ -1,0 +1,42 @@
+[
+  {
+    "name": "A",
+    "numberOfGates": 8,
+    "airportIata": "OSL"
+  },
+  {
+    "name": "B",
+    "numberOfGates": 6,
+    "airportIata": "OSL"
+  },
+  {
+    "name": "C",
+    "numberOfGates": 1,
+    "airportIata": "OSL"
+  },
+  {
+    "name": "D",
+    "numberOfGates": 1,
+    "airportIata": "OSL"
+  },
+  {
+  "name": "E",
+  "numberOfGates": 3,
+  "airportIata": "OSL"
+  },
+  {
+    "name": "C",
+    "numberOfGates": 7,
+    "airportIata": "BGO"
+  },
+  {
+    "name": "D",
+    "numberOfGates": 5,
+    "airportIata": "TRD"
+  },
+  {
+    "name": "F",
+    "numberOfGates": 6,
+    "airportIata": "SVG"
+  }
+]

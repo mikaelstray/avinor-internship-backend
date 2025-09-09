@@ -1,0 +1,26 @@
+[
+  {
+    "iata": "OSL",
+    "name": "Oslo Lufthavn",
+    "city": "Gardermoen",
+    "schengen": true
+  },
+  {
+    "iata": "BGO",
+    "name": "Bergen Lufthavn",
+    "city": "Bergen",
+    "schengen": true
+  },
+  {
+    "iata": "TRD",
+    "name": "Trondheim Lufthavn",
+    "city": "Værnes",
+    "schengen": true
+  },
+  {
+    "iata": "SVG",
+    "name": "Stavanger Lufthavn",
+    "city": "Sola",
+    "schengen": true
+  }
+]
